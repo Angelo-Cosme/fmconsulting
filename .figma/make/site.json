@@ -1,0 +1,10 @@
+{
+  "description": "Showcases FM CONSULTING with a professional website featuring home, about, services, news, and contact pages aligned with the brand's logo colors.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
