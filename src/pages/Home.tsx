@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import heroBg from "@/imports/header-image-fmconsulting.jpg";
 
 const services = [
   {
@@ -57,7 +58,6 @@ export function Home() {
       {/* HERO */}
       <section
         style={{
-          background: "linear-gradient(135deg, var(--text-dark) 0%, var(--blue-deep) 60%, var(--blue-mid) 100%)",
           minHeight: "88vh",
           display: "flex",
           alignItems: "center",
@@ -65,6 +65,29 @@ export function Home() {
           overflow: "hidden",
         }}
       >
+        <img
+          src={heroBg}
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+            zIndex: 0,
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 1,
+            background:
+              "linear-gradient(135deg, rgba(15,28,63,0.88) 0%, rgba(26,58,143,0.78) 60%, rgba(36,86,184,0.70) 100%)",
+          }}
+        />
         <svg
           style={{
             position: "absolute",
@@ -74,15 +97,21 @@ export function Home() {
             opacity: 0.07,
             width: "600px",
             height: "600px",
+            zIndex: 2,
+            pointerEvents: "none",
           }}
           viewBox="0 0 600 600"
           fill="none"
+          aria-hidden="true"
         >
           <circle cx="300" cy="300" r="280" stroke="white" strokeWidth="60" />
           <circle cx="300" cy="300" r="180" stroke="white" strokeWidth="30" />
         </svg>
 
-        <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16 items-center w-full">
+        <div
+          className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16 items-center w-full"
+          style={{ position: "relative", zIndex: 3 }}
+        >
           <div className="fade-up">
             <span
               style={{
