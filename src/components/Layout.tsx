@@ -104,28 +104,6 @@ export function Layout() {
                 {l.label}
               </NavLink>
             ))}
-            <Link
-              to="/contact"
-              style={{
-                background: "var(--blue-deep)",
-                color: "white",
-                borderRadius: "2px",
-                padding: "8px 20px",
-                fontSize: "0.8rem",
-                fontWeight: 600,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                transition: "background 0.2s",
-              }}
-              onMouseOver={(e) =>
-                ((e.target as HTMLElement).style.background = "var(--blue-mid)")
-              }
-              onMouseOut={(e) =>
-                ((e.target as HTMLElement).style.background = "var(--blue-deep)")
-              }
-            >
-              Nous contacter
-            </Link>
           </nav>
 
           {/* Mobile hamburger */}
@@ -186,6 +164,15 @@ export function Layout() {
                 {l.label}
               </NavLink>
             ))}
+            <NavLink
+              to="/contact"
+              className="text-sm font-medium"
+              style={({ isActive }) => ({
+                color: isActive ? "var(--blue-deep)" : "var(--gray-mid)",
+              })}
+            >
+              Nous contacter
+            </NavLink>
           </div>
         )}
       </header>
