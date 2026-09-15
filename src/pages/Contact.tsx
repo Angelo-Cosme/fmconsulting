@@ -331,9 +331,9 @@ export function Contact() {
       <section style={{ background: "var(--blue-deep)", padding: "60px 24px" }}>
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 text-center">
           {[
-            { icon: "🤝", title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt." },
-            { icon: "📊", title: "Consectetur adipiscing", desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea." },
-            { icon: "🌍", title: "Sed do eiusmod", desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat." },
+            { icon: "", title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt." },
+            { icon: "", title: "Consectetur adipiscing", desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea." },
+            { icon: "", title: "Sed do eiusmod", desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat." },
           ].map((item) => (
             <div key={item.title}>
               <div style={{ fontSize: "2rem", marginBottom: "0.75rem" }}>{item.icon}</div>

@@ -21,6 +21,9 @@ body,
   --gray-mid: #6b7280;
   --text-dark: #0f1c3f;
   --border: #dde3ef;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
 }
 
 body {
@@ -49,6 +52,29 @@ html {
   background: var(--blue-light);
   border-radius: 3px;
   opacity: 0;
+}
+
+/* Global rounded blocks */
+img {
+  overflow: hidden;
+  object-fit: cover;
+}
+
+header,
+nav,
+button,
+section,
+article,
+footer,
+main,
+.card,
+.panel,
+.block,
+.service-card,
+.news-card,
+.feature-card,
+.info-card {
+  border-radius: 0;
 }
 
 /* Nav link underline animation */
