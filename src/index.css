@@ -21,24 +21,130 @@ body,
   --gray-mid: #6b7280;
   --text-dark: #0f1c3f;
   --border: #dde3ef;
+  --surface: #ffffff;
+  --surface-alt: #f8fafc;
+  --shadow-soft: 0 18px 48px rgba(15, 28, 63, 0.08);
+  --shadow-card: 0 10px 28px rgba(26, 58, 143, 0.08);
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 18px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   color: var(--text-dark);
-  background: #fff;
+  background: linear-gradient(180deg, #f9fbff 0%, #f5f7fb 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100%;
 }
 
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0;
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
+p, ul, li, span, div {
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  border-radius: 0;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(36, 86, 184, 0.45);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(36, 86, 184, 0.18);
+  color: var(--text-dark);
+}
+
+main,
+section,
+article,
+footer,
+header {
+  box-sizing: border-box;
+}
+
+/* Modern hover/focus states */
+button,
+a,
+input,
+select,
+textarea {
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+}
+
+button:hover,
+a:hover {
+  transform: translateY(-1px);
+}
+
+.page-shell {
+  width: 100%;
+}
+
+.page-shell > section:first-of-type {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.page-shell > section:not(:first-of-type),
+.page-shell > div:not(:first-of-type) {
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Hide scrollbar while preserving scroll */

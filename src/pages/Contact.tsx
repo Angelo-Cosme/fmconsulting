@@ -53,7 +53,7 @@ export function Contact() {
   };
 
   return (
-    <div>
+    <div className="page-shell">
       {/* Header */}
       <section
         style={{

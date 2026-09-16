@@ -9,7 +9,7 @@ const values = [
 
 export function About() {
   return (
-    <div>
+    <div className="page-shell">
       {/* Page Header */}
       <section
         style={{

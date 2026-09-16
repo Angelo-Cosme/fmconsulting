@@ -54,7 +54,7 @@ const testimonials = [
 
 export function Home() {
   return (
-    <div>
+    <div className="page-shell">
       {/* HERO */}
       <section
         style={{

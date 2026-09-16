@@ -60,7 +60,7 @@ export function NewsPost() {
   ];
 
   return (
-    <div>
+    <div className="page-shell">
       {/* Hero image */}
       <div style={{ position: "relative", height: "420px", overflow: "hidden" }}>
         <img

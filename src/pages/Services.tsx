@@ -89,7 +89,7 @@ const services = [
 
 export function Services() {
   return (
-    <div>
+    <div className="page-shell">
       {/* Header */}
       <section
         style={{

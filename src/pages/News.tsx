@@ -15,7 +15,7 @@ export function News() {
   const [featured, ...rest] = filtered;
 
   return (
-    <div>
+    <div className="page-shell">
       {/* Header */}
       <section
         style={{
