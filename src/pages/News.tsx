@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { posts } from "@/data/news";
+import { Arrow, PageHeader } from "@/components/ui";
 
 const categories = ["Tous", "Stratégie", "Digital", "Ressources humaines", "Finance", "RSE"];
 
@@ -8,239 +9,100 @@ export function News() {
   const [activeCategory, setActiveCategory] = useState("Tous");
 
   const filtered =
-    activeCategory === "Tous"
-      ? posts
-      : posts.filter((p) => p.category === activeCategory);
+    activeCategory === "Tous" ? posts : posts.filter((p) => p.category === activeCategory);
 
   const [featured, ...rest] = filtered;
 
   return (
-    <div className="page-shell">
-      {/* Header */}
-      <section
-        style={{
-          background: "linear-gradient(135deg, var(--text-dark) 0%, var(--blue-deep) 100%)",
-          padding: "80px 24px 60px",
-          textAlign: "center",
-        }}
-      >
-        <span
-          style={{
-            color: "var(--gold)",
-            fontSize: "0.75rem",
-            fontWeight: 600,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-          }}
-        >
-          Insights & expertise
-        </span>
-        <h1
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(2rem, 4vw, 3.2rem)",
-            color: "white",
-            marginTop: "0.75rem",
-          }}
-        >
-          Nos actualités
-        </h1>
-        <p
-          style={{
-            color: "rgba(255,255,255,0.6)",
-            fontSize: "1rem",
-            maxWidth: 520,
-            margin: "1rem auto 0",
-          }}
-        >
-          Analyses, tendances et retours d'expérience de nos consultants.
-        </p>
-      </section>
+    <>
+      <PageHeader
+        eyebrow="Insights & expertise"
+        title={
+          <>
+            Nos <span className="accent">actualités</span>
+          </>
+        }
+        description="Analyses, tendances et retours d'expérience de nos consultants."
+      />
 
-      <section style={{ padding: "60px 24px 80px" }}>
-        <div className="max-w-7xl mx-auto">
-          {/* Category filter */}
-          <div className="flex flex-wrap gap-3 mb-10">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                style={{
-                  padding: "7px 18px",
-                  borderRadius: "2px",
-                  fontSize: "0.78rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.06em",
-                  cursor: "pointer",
-                  border: "1px solid",
-                  transition: "all 0.2s",
-                  background: activeCategory === cat ? "var(--blue-deep)" : "white",
-                  borderColor: activeCategory === cat ? "var(--blue-deep)" : "var(--border)",
-                  color: activeCategory === cat ? "white" : "var(--gray-mid)",
-                }}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Featured article */}
-          {featured && (
-            <Link
-              to={`/news/${featured.slug}`}
-              style={{ textDecoration: "none", display: "block", marginBottom: "3rem" }}
+      <section className="container-site py-12 md:py-16">
+        {/* Category filter */}
+        <div className="-mx-6 mb-12 flex gap-2 overflow-x-auto px-6 pb-1 md:mx-0 md:flex-wrap md:px-0">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              aria-pressed={activeCategory === cat}
+              className={`shrink-0 cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors ${
+                activeCategory === cat
+                  ? "border-ink bg-ink text-white"
+                  : "border-line bg-white text-muted hover:border-ink hover:text-ink"
+              }`}
             >
-              <div
-                style={{
-                  borderRadius: "4px",
-                  overflow: "hidden",
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  background: "white",
-                  border: "1px solid var(--border)",
-                  transition: "box-shadow 0.2s",
-                }}
-                onMouseOver={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow =
-                    "0 8px 40px rgba(26,58,143,0.12)";
-                }}
-                onMouseOut={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                }}
-              >
-                <img
-                  src={featured.photo}
-                  alt={featured.title}
-                  style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }}
-                />
-                <div style={{ padding: "2.5rem 2rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span
-                      style={{
-                        background: "var(--blue-pale)",
-                        color: "var(--blue-deep)",
-                        fontSize: "0.72rem",
-                        fontWeight: 700,
-                        padding: "3px 10px",
-                        borderRadius: "2px",
-                        letterSpacing: "0.08em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {featured.category}
-                    </span>
-                    <span style={{ color: "var(--gray-mid)", fontSize: "0.78rem" }}>
-                      {featured.date}
-                    </span>
-                  </div>
-                  <h2
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "1.6rem",
-                      lineHeight: 1.3,
-                      color: "var(--text-dark)",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    {featured.title}
-                  </h2>
-                  <p style={{ color: "var(--gray-mid)", fontSize: "0.87rem", lineHeight: 1.75, marginBottom: "1.5rem" }}>
-                    {featured.excerpt}
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <span style={{ fontSize: "0.78rem", color: "var(--blue-mid)", fontWeight: 600 }}>
-                      Par {featured.author}
-                    </span>
-                    <span style={{ color: "var(--gold)", fontSize: "0.82rem", fontWeight: 700 }}>→</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          )}
+              {cat}
+            </button>
+          ))}
+        </div>
 
-          {/* Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+        {/* Featured article */}
+        {featured && (
+          <Link
+            to={`/news/${featured.slug}`}
+            className="group mb-16 grid items-center gap-8 md:grid-cols-2 md:gap-12"
+          >
+            <div className="overflow-hidden rounded-3xl">
+              <img
+                src={featured.photo}
+                alt=""
+                className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </div>
+            <div>
+              <p className="text-sm text-muted">
+                <span className="font-medium text-brand-600">{featured.category}</span> · {featured.date}
+              </p>
+              <h2 className="mt-4 text-3xl font-semibold leading-tight transition-colors group-hover:text-brand-600 md:text-4xl">
+                {featured.title}
+              </h2>
+              <p className="mt-5 leading-relaxed text-muted">{featured.excerpt}</p>
+              <p className="mt-8 flex items-center justify-between border-t border-line pt-6 text-sm">
+                <span className="text-ink-soft">Par {featured.author}</span>
+                <span className="link-arrow">
+                  Lire l'article <Arrow />
+                </span>
+              </p>
+            </div>
+          </Link>
+        )}
+
+        {/* Grid */}
+        {rest.length > 0 && (
+          <div className="grid gap-x-8 gap-y-14 border-t border-line pt-16 md:grid-cols-2 lg:grid-cols-3">
             {rest.map((post) => (
-              <Link
-                key={post.slug}
-                to={`/news/${post.slug}`}
-                style={{ textDecoration: "none" }}
-              >
-                <article
-                  style={{
-                    background: "white",
-                    border: "1px solid var(--border)",
-                    borderRadius: "4px",
-                    overflow: "hidden",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    transition: "box-shadow 0.2s, transform 0.2s",
-                  }}
-                  onMouseOver={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.boxShadow = "0 8px 32px rgba(26,58,143,0.10)";
-                    el.style.transform = "translateY(-3px)";
-                  }}
-                  onMouseOut={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.boxShadow = "none";
-                    el.style.transform = "none";
-                  }}
-                >
+              <Link key={post.slug} to={`/news/${post.slug}`} className="group flex flex-col">
+                <div className="overflow-hidden rounded-2xl">
                   <img
                     src={post.photo}
-                    alt={post.title}
-                    style={{ width: "100%", height: "200px", objectFit: "cover", display: "block" }}
+                    alt=""
+                    className="aspect-[3/2] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                  <div style={{ padding: "1.5rem", flex: 1, display: "flex", flexDirection: "column" }}>
-                    <div className="flex items-center gap-2 mb-3">
-                      <span
-                        style={{
-                          background: "var(--blue-pale)",
-                          color: "var(--blue-deep)",
-                          fontSize: "0.68rem",
-                          fontWeight: 700,
-                          padding: "2px 8px",
-                          borderRadius: "2px",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.08em",
-                        }}
-                      >
-                        {post.category}
-                      </span>
-                      <span style={{ color: "var(--gray-mid)", fontSize: "0.75rem" }}>{post.date}</span>
-                    </div>
-                    <h3
-                      style={{
-                        fontFamily: "'Playfair Display', serif",
-                        fontSize: "1.05rem",
-                        lineHeight: 1.35,
-                        color: "var(--text-dark)",
-                        marginBottom: "0.75rem",
-                      }}
-                    >
-                      {post.title}
-                    </h3>
-                    <p style={{ color: "var(--gray-mid)", fontSize: "0.82rem", lineHeight: 1.7, flex: 1, marginBottom: "1rem" }}>
-                      {post.excerpt}
-                    </p>
-                    <span style={{ color: "var(--blue-mid)", fontSize: "0.8rem", fontWeight: 600 }}>
-                      Lire l'article →
-                    </span>
-                  </div>
-                </article>
+                </div>
+                <p className="mt-5 text-xs text-muted">
+                  <span className="font-medium text-brand-600">{post.category}</span> · {post.date}
+                </p>
+                <h3 className="mt-2 text-xl font-semibold leading-snug transition-colors group-hover:text-brand-600">
+                  {post.title}
+                </h3>
+                <p className="mt-3 line-clamp-2 flex-1 text-sm leading-relaxed text-muted">{post.excerpt}</p>
               </Link>
             ))}
           </div>
+        )}
 
-          {filtered.length === 0 && (
-            <div style={{ textAlign: "center", padding: "4rem", color: "var(--gray-mid)" }}>
-              Aucun article dans cette catégorie.
-            </div>
-          )}
-        </div>
+        {filtered.length === 0 && (
+          <p className="py-20 text-center text-muted">Aucun article dans cette catégorie.</p>
+        )}
       </section>
-    </div>
+    </>
   );
 }
