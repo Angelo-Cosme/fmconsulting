@@ -9,6 +9,11 @@ import { Contact } from "./pages/Contact";
 
 export const router = createBrowserRouter([
   {
+    // Dashboard chargé à la demande : son code (et supabase-js) n'est jamais téléchargé par les visiteurs.
+    path: "/admin/*",
+    lazy: async () => ({ Component: (await import("./admin/AdminApp")).default }),
+  },
+  {
     path: "/",
     Component: Layout,
     children: [

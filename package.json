@@ -7,9 +7,21 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "db:start": "supabase start && node scripts/supabase-env.mjs",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:status": "supabase status",
+    "admin:create": "node scripts/create-admin.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "@tiptap/extension-image": "^3.31.4",
+    "@tiptap/extension-youtube": "^3.31.4",
+    "@tiptap/extensions": "^3.31.4",
+    "@tiptap/pm": "^3.31.4",
+    "@tiptap/react": "^3.31.4",
+    "@tiptap/starter-kit": "^3.31.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^8.3.1"
@@ -21,8 +33,14 @@
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.0.0",
     "oxfmt": "^0.2.0",
+    "supabase": "^2.119.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.0",
     "vite": "^8.0.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "supabase"
+    ]
   }
 }

@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import heroBg from "@/imports/header-image-fmconsulting.jpg";
-import { posts } from "@/data/news";
+import { fetchPosts } from "@/lib/news";
+import { PostCard, PostCardSkeleton, useAsync } from "@/components/news";
 import { Arrow, Check, CtaBand, SectionHeading } from "@/components/ui";
 
 const services = [
@@ -227,39 +228,34 @@ export function Home() {
         </div>
       </section>
 
-      {/* LATEST NEWS */}
-      <section className="container-site pt-20 md:pt-28">
-        <SectionHeading
-          eyebrow="Actualités"
-          title="Nos dernières analyses"
-          action={
-            <Link to="/news" className="link-arrow">
-              Toutes les actualités <Arrow />
-            </Link>
-          }
-        />
-        <div className="grid gap-8 md:grid-cols-3">
-          {posts.slice(0, 3).map((p) => (
-            <Link key={p.slug} to={`/news/${p.slug}`} className="group">
-              <div className="overflow-hidden rounded-2xl">
-                <img
-                  src={p.photo}
-                  alt=""
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              </div>
-              <p className="mt-5 text-xs text-muted">
-                {p.category} · {p.date}
-              </p>
-              <h3 className="mt-2 text-lg font-semibold leading-snug transition-colors group-hover:text-brand-600">
-                {p.title}
-              </h3>
-            </Link>
-          ))}
-        </div>
-      </section>
+      <LatestNews />
 
       <CtaBand />
     </>
+  );
+}
+
+/** Les 3 derniers articles publiés ; la section disparaît s'il n'y en a pas (ou en cas d'erreur). */
+function LatestNews() {
+  const { data: posts, loading } = useAsync(() => fetchPosts({ limit: 3 }), []);
+  if (!loading && !posts?.length) return null;
+
+  return (
+    <section className="container-site pt-20 md:pt-28">
+      <SectionHeading
+        eyebrow="Actualités"
+        title="Nos dernières analyses"
+        action={
+          <Link to="/news" className="link-arrow">
+            Toutes les actualités <Arrow />
+          </Link>
+        }
+      />
+      <div className="grid gap-8 md:grid-cols-3">
+        {posts
+          ? posts.map((p) => <PostCard key={p.id} post={p} aspect="aspect-[4/3]" />)
+          : [0, 1, 2].map((i) => <PostCardSkeleton key={i} aspect="aspect-[4/3]" />)}
+      </div>
+    </section>
   );
 }

@@ -72,6 +72,53 @@
 }
 
 @layer components {
+  /* Contenu des articles : partagé par le site public et l'éditeur du dashboard */
+  .rich-text {
+    @apply text-lg leading-[1.8] text-ink-soft;
+  }
+  .rich-text > * + * {
+    margin-top: 1.25em;
+  }
+  .rich-text h2 {
+    @apply pt-6 text-2xl font-semibold md:text-3xl;
+  }
+  .rich-text h3 {
+    @apply pt-4 text-xl font-semibold md:text-2xl;
+  }
+  .rich-text a {
+    @apply text-brand-600 underline decoration-brand-600/30 underline-offset-4 transition-colors hover:decoration-brand-600;
+  }
+  .rich-text strong {
+    @apply font-semibold text-ink;
+  }
+  .rich-text ul {
+    @apply list-disc pl-6 marker:text-gold;
+  }
+  .rich-text ol {
+    @apply list-decimal pl-6 marker:text-muted;
+  }
+  .rich-text li + li {
+    margin-top: 0.4em;
+  }
+  .rich-text li > p {
+    margin: 0;
+  }
+  .rich-text blockquote {
+    @apply my-10 border-l-2 border-gold pl-6 font-serif text-2xl leading-snug text-ink italic md:text-3xl;
+  }
+  .rich-text hr {
+    @apply my-12 border-line;
+  }
+  .rich-text figure {
+    @apply my-10;
+  }
+  .rich-text figcaption {
+    @apply mt-3 text-sm text-muted;
+  }
+  .rich-text code {
+    @apply rounded bg-mist px-1.5 py-0.5 text-[0.9em];
+  }
+
   .eyebrow {
     @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-brand-600 uppercase;
   }
@@ -149,4 +196,33 @@
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Éditeur Tiptap (dashboard) */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: color-mix(in srgb, var(--color-muted) 55%, transparent);
+}
+.tiptap img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  cursor: grab;
+}
+.tiptap img.ProseMirror-selectednode {
+  outline: 3px solid var(--color-brand-600);
+  outline-offset: 3px;
+}
+.tiptap div[data-youtube-video] iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 1rem;
+}
+.tiptap div[data-youtube-video].ProseMirror-selectednode iframe {
+  outline: 3px solid var(--color-brand-600);
+  outline-offset: 3px;
 }

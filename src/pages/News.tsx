@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { posts } from "@/data/news";
+import { CATEGORIES, fetchPosts, formatDate } from "@/lib/news";
 import { Arrow, PageHeader } from "@/components/ui";
+import { NewsError, PostCard, PostCardSkeleton, PostImage, useAsync } from "@/components/news";
 
-const categories = ["Tous", "Stratégie", "Digital", "Ressources humaines", "Finance", "RSE"];
+const categories = ["Tous", ...CATEGORIES];
 
 export function News() {
   const [activeCategory, setActiveCategory] = useState("Tous");
+  const { data: posts, error, loading } = useAsync(
+    () => fetchPosts({ category: activeCategory === "Tous" ? undefined : activeCategory }),
+    [activeCategory],
+  );
 
-  const filtered =
-    activeCategory === "Tous" ? posts : posts.filter((p) => p.category === activeCategory);
-
-  const [featured, ...rest] = filtered;
+  const [featured, ...rest] = posts ?? [];
 
   return (
     <>
@@ -44,64 +46,63 @@ export function News() {
           ))}
         </div>
 
-        {/* Featured article */}
-        {featured && (
-          <Link
-            to={`/news/${featured.slug}`}
-            className="group mb-16 grid items-center gap-8 md:grid-cols-2 md:gap-12"
-          >
-            <div className="overflow-hidden rounded-3xl">
-              <img
-                src={featured.photo}
-                alt=""
-                className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-              />
-            </div>
-            <div>
-              <p className="text-sm text-muted">
-                <span className="font-medium text-brand-600">{featured.category}</span> · {featured.date}
-              </p>
-              <h2 className="mt-4 text-3xl font-semibold leading-tight transition-colors group-hover:text-brand-600 md:text-4xl">
-                {featured.title}
-              </h2>
-              <p className="mt-5 leading-relaxed text-muted">{featured.excerpt}</p>
-              <p className="mt-8 flex items-center justify-between border-t border-line pt-6 text-sm">
-                <span className="text-ink-soft">Par {featured.author}</span>
-                <span className="link-arrow">
-                  Lire l'article <Arrow />
-                </span>
-              </p>
-            </div>
-          </Link>
-        )}
+        {error && <NewsError message={error} />}
 
-        {/* Grid */}
-        {rest.length > 0 && (
-          <div className="grid gap-x-8 gap-y-14 border-t border-line pt-16 md:grid-cols-2 lg:grid-cols-3">
-            {rest.map((post) => (
-              <Link key={post.slug} to={`/news/${post.slug}`} className="group flex flex-col">
-                <div className="overflow-hidden rounded-2xl">
-                  <img
-                    src={post.photo}
-                    alt=""
-                    className="aspect-[3/2] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <p className="mt-5 text-xs text-muted">
-                  <span className="font-medium text-brand-600">{post.category}</span> · {post.date}
-                </p>
-                <h3 className="mt-2 text-xl font-semibold leading-snug transition-colors group-hover:text-brand-600">
-                  {post.title}
-                </h3>
-                <p className="mt-3 line-clamp-2 flex-1 text-sm leading-relaxed text-muted">{post.excerpt}</p>
-              </Link>
+        {loading && !posts && (
+          <div className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <PostCardSkeleton key={i} />
             ))}
           </div>
         )}
 
-        {filtered.length === 0 && (
-          <p className="py-20 text-center text-muted">Aucun article dans cette catégorie.</p>
-        )}
+        <div className={`transition-opacity ${loading && posts ? "opacity-50" : ""}`}>
+          {/* Featured article */}
+          {featured && (
+            <Link
+              to={`/news/${featured.slug}`}
+              className="group mb-16 grid items-center gap-8 md:grid-cols-2 md:gap-12"
+            >
+              <div className="overflow-hidden rounded-3xl">
+                <PostImage
+                  image={featured.cover}
+                  eager
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="aspect-[4/3] w-full transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div>
+                <p className="text-sm text-muted">
+                  <span className="font-medium text-brand-600">{featured.category}</span> ·{" "}
+                  {formatDate(featured.published_at)}
+                </p>
+                <h2 className="mt-4 text-3xl font-semibold leading-tight transition-colors group-hover:text-brand-600 md:text-4xl">
+                  {featured.title}
+                </h2>
+                {featured.excerpt && <p className="mt-5 leading-relaxed text-muted">{featured.excerpt}</p>}
+                <p className="mt-8 flex items-center justify-between border-t border-line pt-6 text-sm">
+                  <span className="text-ink-soft">{featured.author_name && `Par ${featured.author_name}`}</span>
+                  <span className="link-arrow">
+                    Lire l'article <Arrow />
+                  </span>
+                </p>
+              </div>
+            </Link>
+          )}
+
+          {/* Grid */}
+          {rest.length > 0 && (
+            <div className="grid gap-x-8 gap-y-14 border-t border-line pt-16 md:grid-cols-2 lg:grid-cols-3">
+              {rest.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
+            </div>
+          )}
+
+          {posts && posts.length === 0 && (
+            <p className="py-20 text-center text-muted">Aucun article dans cette catégorie.</p>
+          )}
+        </div>
       </section>
     </>
   );
