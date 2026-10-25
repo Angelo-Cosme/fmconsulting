@@ -4,15 +4,53 @@
 // En local (Supabase démarré avec `pnpm db:start`) : les clés sont lues automatiquement.
 //   pnpm admin:create prenom.nom@exemple.com "MotDePasse"
 //
-// En ligne : fournir l'URL du projet et la clé secrète (service_role), jamais commitée.
+// En ligne (projet de VITE_SUPABASE_URL dans .env, après `npx supabase login`) :
+//   pnpm admin:create prenom.nom@exemple.com --prod
+// Le mot de passe est alors demandé sans s'afficher à l'écran.
+// Ou en fournissant la clé secrète (service_role), jamais commitée :
 //   SUPABASE_URL=https://xxx.supabase.co SUPABASE_SERVICE_ROLE_KEY=... pnpm admin:create email "MotDePasse"
 
 import { execSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 
-const [email, password] = process.argv.slice(2);
-if (!email || !password) {
-  console.error('Usage : pnpm admin:create <email> "<mot de passe>"');
+const args = process.argv.slice(2);
+const prod = args.includes("--prod");
+const [email, givenPassword] = args.filter((a) => a !== "--prod");
+if (!email) {
+  console.error('Usage : pnpm admin:create <email> ["<mot de passe>"] [--prod]');
   process.exit(1);
+}
+
+/** Saisie masquée du mot de passe dans le terminal. */
+function askHidden(question) {
+  return new Promise((resolve) => {
+    process.stdout.write(question);
+    const stdin = process.stdin;
+    stdin.setRawMode(true);
+    stdin.resume();
+    stdin.setEncoding("utf8");
+    let value = "";
+    stdin.on("data", function onData(ch) {
+      if (ch === "\r" || ch === "\n") {
+        stdin.setRawMode(false);
+        stdin.pause();
+        stdin.off("data", onData);
+        process.stdout.write("\n");
+        resolve(value);
+      } else if (ch === "\u0003") process.exit(1);
+      else if (ch === "\u007f") value = value.slice(0, -1);
+      else value += ch;
+    });
+  });
+}
+
+let password = givenPassword;
+if (!password) {
+  password = await askHidden("Mot de passe : ");
+  if ((await askHidden("Confirmez le mot de passe : ")) !== password) {
+    console.error("Les deux mots de passe sont différents.");
+    process.exit(1);
+  }
 }
 if (password.length < 8) {
   console.error("Le mot de passe doit contenir au moins 8 caractères.");
@@ -21,6 +59,25 @@ if (password.length < 8) {
 
 let url = process.env.SUPABASE_URL;
 let key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+if ((!url || !key) && prod) {
+  url = readFileSync(".env", "utf8").match(/^VITE_SUPABASE_URL=(.+)$/m)?.[1]?.trim();
+  const ref = url?.match(/^https:\/\/([a-z0-9]+)\.supabase\.co/)?.[1];
+  if (!ref) {
+    console.error("VITE_SUPABASE_URL introuvable ou invalide dans .env.");
+    process.exit(1);
+  }
+  try {
+    const keys = JSON.parse(execSync(`npx supabase projects api-keys --project-ref ${ref} -o json`, { stdio: ["ignore", "pipe", "ignore"] }).toString());
+    key = (keys.find((k) => k.name === "service_role") ?? keys.find((k) => k.type === "secret"))?.api_key;
+  } catch {
+    key = undefined;
+  }
+  if (!key) {
+    console.error("Clé secrète introuvable : connectez-vous d'abord avec `npx supabase login`.");
+    process.exit(1);
+  }
+  console.log(`Supabase en ligne : ${url}`);
+}
 if (!url || !key) {
   try {
     const status = JSON.parse(execSync("npx supabase status -o json", { stdio: ["ignore", "pipe", "ignore"] }).toString());
