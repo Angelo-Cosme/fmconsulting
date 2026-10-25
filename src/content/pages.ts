@@ -4,8 +4,8 @@ import { ACCENT_HELP, area, image, link, list, section, text, videoField, type F
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Contenu par défaut du site et champs modifiables depuis le dashboard (/admin).
-// Les textes ci-dessous sont provisoires : ils seront remplacés par le contenu
-// définitif du cabinet, directement depuis le dashboard.
+// Textes établis à partir de la « Note synthétique des projets et activités du
+// cabinet FM Consulting » (juin 2026). Ils restent modifiables depuis le dashboard.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const ICON_OPTIONS = [
@@ -85,8 +85,8 @@ const settings = {
       hideable: true,
       fields: [title(), area("text", "Texte"), link("link", "Bouton"), image("image", "Image de fond")],
       defaults: {
-        title: "Un projet pour votre *territoire* ?",
-        text: "Collectivités, institutions, associations : parlons de vos ambitions et construisons ensemble une démarche adaptée.",
+        title: "Un projet au *Bénin* ?",
+        text: "Collectivités, institutions, investisseurs : parlons de vos ambitions et construisons ensemble une démarche adaptée.",
         link: { label: "Prendre contact", href: "/contact" } as Link,
         image: photo("signature-accords-cooperation-2025", "Signature d'accords de coopération") as Img,
       },
@@ -100,7 +100,7 @@ const settings = {
       ],
       defaults: {
         title: "Une question ?",
-        about: "Cabinet de conseil spécialisé dans les projets de développement communautaire, sociaux et culturels, entre l'Afrique, les Caraïbes et l'Europe.",
+        about: "Cabinet de conseil stratégique en coopération internationale, investissement, développement économique, formation et représentation institutionnelle, au service du Bénin et de ses partenaires.",
         copyright: "FM Consulting. Tous droits réservés.",
       },
     }),
@@ -123,8 +123,8 @@ const home = {
         text("badge", "Texte du macaron rond", "Ex. Prendre rendez-vous"),
       ],
       defaults: {
-        title: "Coopérer.\nTransmettre.\n*Développer.*",
-        text: "Cabinet de conseil en développement communautaire, social et culturel, au service des territoires et de leurs habitants.",
+        title: "Coopérer.\nInvestir.\n*Développer.*",
+        text: "Cabinet de conseil stratégique en coopération internationale, investissement et développement économique, au service du Bénin et de ses partenaires.",
         cta: { label: "Découvrir nos expertises", href: "/expertises" } as Link,
         image: photo("signature-accords-cooperation-2025", "Signature des accords de coopération entre les deux maires, août 2025") as Img,
         badge: "Prendre rendez-vous",
@@ -143,21 +143,21 @@ const home = {
         items: [
           {
             title: "Ce que nous faisons",
-            text: "Nous concevons et accompagnons des projets de coopération, de développement local et de valorisation culturelle.",
+            text: "Conseil stratégique en coopération internationale, investissement, développement économique, formation et représentation institutionnelle.",
             link: { label: "Nos expertises", href: "/expertises" },
             image: photo("echanges-mairie-ouidah", "Séance d'échanges à la mairie de Ouidah"),
             tone: "clay",
           },
           {
-            title: "Nos valeurs",
-            text: "Écoute, respect des cultures, transparence et exigence : des principes qui guident chacune de nos missions.",
+            title: "Notre mission",
+            text: "Renforcer les relations institutionnelles et promouvoir un développement économique durable, notamment au profit de la République du Bénin.",
             link: { label: "Le cabinet", href: "/cabinet" },
             image: photo("cabinet-delegation", "L'équipe du cabinet FM Consulting avec une délégation"),
             tone: "brand",
           },
           {
-            title: "Notre impact",
-            text: "Des partenariats concrets entre collectivités, institutions et communautés, de part et d'autre de l'Atlantique.",
+            title: "Notre réseau",
+            text: "Ministères, chambres consulaires, communes et investisseurs : du Bénin à la Martinique, d'Haïti à l'Europe.",
             link: { label: "Nos actualités", href: "/actualites" },
             image: photo("afrodescendants-ouidah-save", "Des afrodescendants reçus par les maires de Ouidah et de Savè"),
             tone: "mist",
@@ -167,7 +167,7 @@ const home = {
     }),
     stats: section({
       label: "Chiffres clés",
-      help: "Chiffres provisoires, à vérifier avant la mise en ligne.",
+      help: "Chiffres tirés de la note de synthèse du cabinet (juin 2026).",
       hideable: true,
       fields: [
         image("image", "Image de fond"),
@@ -179,10 +179,10 @@ const home = {
       defaults: {
         image: photo("ministre-ladekan-case-pilote", "Délégation de Case-Pilote avec la Ministre de l'Enseignement supérieur") as Img,
         items: [
-          { value: "5", suffix: "+", label: "Communes partenaires" },
-          { value: "2", suffix: "", label: "Continents reliés" },
-          { value: "8", suffix: "+", label: "Missions et délégations" },
-          { value: "5", suffix: "", label: "Domaines d'expertise" },
+          { value: "6", suffix: "+", label: "Communes béninoises mobilisées" },
+          { value: "8", suffix: "+", label: "Institutions nationales rencontrées" },
+          { value: "7", suffix: "", label: "Projets d'investissement et de développement" },
+          { value: "6", suffix: "", label: "Pays et territoires d'intervention" },
         ],
       },
     }),
@@ -201,11 +201,11 @@ const home = {
       ],
       defaults: {
         eyebrow: "Le cabinet",
-        title: "Relier les territoires, servir les *communautés*.",
-        text: "FM Consulting accompagne collectivités, institutions et organisations de la société civile dans la conception et la conduite de projets à fort impact humain : coopération décentralisée, développement communautaire, culture et patrimoine, éducation.\n\nNotre force : une connaissance fine des acteurs locaux et un réseau institutionnel qui permet de transformer les intentions en partenariats concrets.",
+        title: "Un cabinet de conseil *stratégique*.",
+        text: "FM Consulting est une structure de conseil stratégique composée d'experts et de consultants, intervenant dans les domaines de la coopération internationale, de l'investissement, du développement économique, de la formation et de la représentation institutionnelle.\n\nDans l'accomplissement de ses missions, le cabinet contribue au renforcement des relations institutionnelles et à la promotion du développement économique durable, notamment au profit de la République du Bénin.",
         image: photo("fanou-ministre-mesrs", "Endurance Martial B. Fanou, Directeur associé du cabinet FM Consulting, avec Madame la Ministre (MESRS)") as Img,
-        badgeLabel: "Notre terrain",
-        badgeValue: "Afrique · Caraïbes",
+        badgeLabel: "Délégations accueillies depuis",
+        badgeValue: "2022",
         question: "Une question ? Notre équipe vous répond.",
         link: { label: "En savoir plus", href: "/cabinet" } as Link,
       },
@@ -222,28 +222,28 @@ const home = {
         watermark: "Réalisations",
         items: [
           {
-            title: "Coopération décentralisée",
-            text: "Accords de coopération entre collectivités du Bénin et de la Martinique.",
-            image: photo("signature-accords-cooperation-2025", "Signature des accords de coopération entre les deux maires"),
+            title: "Coopération internationale",
+            text: "Jumelage entre la commune de Savè (Bénin) et la ville de Case-Pilote (Martinique), jusqu'à la signature d'accords de coopération en août 2025.",
+            image: photo("signature-accords-cooperation-2025", "Signature des accords de coopération, août 2025"),
             link: { label: "Lire l'article", href: "/actualites/signature-accords-cooperation-aout-2025" },
           },
           {
-            title: "Diplomatie & institutions",
-            text: "Séances de travail avec les ministères et accueil de délégations officielles.",
+            title: "Représentation institutionnelle",
+            text: "Audiences avec les ministères, chambres consulaires et agences publiques pour les délégations accueillies depuis 2022.",
             image: photo("marechal-afoukou-mae", "Thierry Maréchal et M. Afoukou, Secrétaire général du Ministère des Affaires étrangères"),
             link: { label: "Lire l'article", href: "/actualites/delegation-martinique-ministere-affaires-etrangeres-2024" },
           },
           {
-            title: "Culture & mémoire",
-            text: "Rencontres entre afrodescendants et autorités locales, à Ouidah et à Savè.",
-            image: photo("afrodescendants-ouidah-save", "Des afrodescendants reçus par les maires de Ouidah et de Savè"),
-            link: { label: "Lire l'article", href: "/actualites/afrodescendants-recus-maires-ouidah-save" },
+            title: "Investissements",
+            text: "Conseil et facilitation de projets d'implantation industrielle au Bénin : rhumerie, filiale de rhum haïtien, unité pharmaceutique.",
+            image: photo("echanges-mairie-ouidah", "Séance d'échanges à la mairie de Ouidah"),
+            link: { label: "Nos expertises", href: "/expertises" },
           },
           {
-            title: "Éducation & recherche",
-            text: "Mise en relation avec le Ministère de l'Enseignement supérieur et de la Recherche scientifique.",
+            title: "Formation & compétences",
+            text: "Transfert de savoir-faire entre la Martinique et le Bénin (aviculture, poterie) et coopération universitaire.",
             image: photo("seance-travail-mesrs", "Séance de travail au MESRS"),
-            link: { label: "Lire l'article", href: "/actualites/case-pilote-ministere-enseignement-superieur-2024" },
+            link: { label: "Nos expertises", href: "/expertises" },
           },
         ] as { title: string; text: string; image: Img; link: Link }[],
       },
@@ -258,7 +258,7 @@ const home = {
       ],
       defaults: {
         eyebrow: "L'équipe",
-        title: "Des femmes et des hommes *engagés*.",
+        title: "Des experts et des consultants *engagés*.",
         members: [
           {
             name: "Endurance Martial B. Fanou",
@@ -287,11 +287,11 @@ const home = {
       defaults: {
         words: [
           { text: "Coopération" },
-          { text: "Communautés" },
-          { text: "Culture" },
-          { text: "Patrimoine" },
-          { text: "Éducation" },
+          { text: "Investissement" },
           { text: "Développement" },
+          { text: "Formation" },
+          { text: "Partenariats" },
+          { text: "Bénin" },
         ],
       },
     }),
@@ -306,13 +306,13 @@ const home = {
       ],
       defaults: {
         eyebrow: "Pourquoi FM Consulting",
-        title: "Une approche humaine, un réseau *qui agit*.",
+        title: "Un réseau institutionnel *qui agit*.",
         image: photo("delegation-case-pilote-ouidah", "Visite d'une délégation de Case-Pilote au maire de Ouidah") as Img,
         items: [
-          { icon: "community", title: "Ancrage local", text: "Une connaissance fine des territoires, de leurs acteurs et de leurs codes." },
-          { icon: "institution", title: "Réseau institutionnel", text: "Un dialogue établi avec les collectivités, les ministères et les partenaires." },
-          { icon: "handshake", title: "Approche participative", text: "Des projets construits avec les communautés, et non pour elles." },
-          { icon: "chart", title: "Suivi rigoureux", text: "Un accompagnement de bout en bout, de la conception à l'évaluation." },
+          { icon: "institution", title: "Réseau institutionnel", text: "Un dialogue établi avec les ministères, les chambres consulaires, les agences publiques et les communes du Bénin." },
+          { icon: "globe", title: "Un pont entre les continents", text: "Des relations suivies avec la Martinique, Haïti, l'Europe et les États-Unis." },
+          { icon: "compass", title: "Connaissance du terrain", text: "Des délégations accueillies et accompagnées depuis 2022, de la préparation aux rencontres officielles." },
+          { icon: "handshake", title: "Respect des cadres", text: "Des actions menées dans le respect des cadres institutionnels et diplomatiques." },
         ],
       },
     }),
@@ -355,23 +355,23 @@ const home = {
         items: [
           {
             question: "Quels types de structures accompagnez-vous ?",
-            answer: "Collectivités territoriales, institutions publiques, associations, fondations et organisations de la diaspora qui portent des projets à dimension communautaire, sociale ou culturelle.",
+            answer: "Collectivités territoriales, institutions, investisseurs, entreprises, universités et organisations de la diaspora qui portent un projet au Bénin ou avec le Bénin.",
           },
           {
             question: "Où intervenez-vous ?",
-            answer: "Principalement au Bénin et dans les Caraïbes (Martinique), ainsi qu'en France et en Afrique de l'Ouest, selon les besoins des projets.",
+            answer: "Principalement au Bénin, en lien avec la Martinique, Haïti, l'Europe (France, Pologne, Espagne) et les États-Unis.",
+          },
+          {
+            question: "Accompagnez-vous les investisseurs qui souhaitent s'implanter au Bénin ?",
+            answer: "Oui. Nous intervenons en qualité de conseil et de facilitateur : mise en relation avec les autorités et les communes, préparation et suivi des négociations.",
           },
           {
             question: "Pouvez-vous organiser l'accueil d'une délégation ?",
-            answer: "Oui : programme des rencontres, mise en relation avec les autorités, logistique et accompagnement sur place.",
+            answer: "Oui. Depuis 2022, nous organisons des rencontres officielles pour les délégations : audiences auprès des ministères, des chambres consulaires, des agences publiques et des communes.",
           },
           {
-            question: "Comment se déroule une mission ?",
-            answer: "Nous commençons par un temps d'écoute et de diagnostic, puis nous proposons une démarche, la mettons en œuvre avec vous et en assurons le suivi.",
-          },
-          {
-            question: "Aidez-vous à trouver des financements ?",
-            answer: "Nous accompagnons le montage des dossiers et l'identification des partenaires techniques et financiers adaptés à votre projet.",
+            question: "Proposez-vous des actions de formation ?",
+            answer: "Oui : transfert de compétences et professionnalisation, par exemple en aviculture et en poterie, ainsi que des projets de coopération universitaire.",
           },
         ],
       },
@@ -397,8 +397,8 @@ const about = {
       fields: [eyebrow, title(), area("text", "Texte", undefined, 2), image("image", "Image")],
       defaults: {
         eyebrow: "Le cabinet",
-        title: "Au service des territoires et de *leurs habitants*.",
-        text: "FM Consulting est un cabinet de conseil dédié aux projets de développement communautaire, sociaux et culturels.",
+        title: "Un cabinet de conseil *stratégique*.",
+        text: "Experts et consultants au service de la coopération internationale, de l'investissement et du développement économique du Bénin.",
         image: photo("cabinet-delegation", "L'équipe du cabinet FM Consulting avec une délégation") as Img,
       },
     }),
@@ -407,8 +407,8 @@ const about = {
       fields: [eyebrow, title(), area("text", "Texte", "Laissez une ligne vide entre deux paragraphes.", 8), image("image", "Image")],
       defaults: {
         eyebrow: "Qui sommes-nous",
-        title: "Un cabinet de *conseil et de terrain*.",
-        text: "Né de la conviction que le développement passe par la rencontre, FM Consulting accompagne les acteurs publics et associatifs dans leurs projets de coopération, de développement local et de valorisation culturelle.\n\nDu diagnostic à l'évaluation, nous mobilisons notre connaissance des territoires et notre réseau pour créer des liens durables entre collectivités, institutions et communautés.\n\nTexte provisoire : la présentation détaillée du cabinet sera ajoutée prochainement.",
+        title: "Des experts au service de la *coopération*.",
+        text: "Le cabinet FM Consulting est une structure de conseil stratégique composée d'experts et de consultants, intervenant dans les domaines de la coopération internationale, de l'investissement, du développement économique, de la formation et de la représentation institutionnelle.\n\nDans l'accomplissement des missions qu'il s'est assignées, le cabinet contribue au renforcement des relations institutionnelles et à la promotion du développement économique durable, notamment au profit de la République du Bénin.\n\nDepuis 2022, il accueille et accompagne des délégations institutionnelles martiniquaises et haïtiennes, et facilite des projets d'investissement structurants pour le pays.",
         image: photo("echanges-mairie-ouidah", "Séance d'échanges à la mairie de Ouidah") as Img,
       },
     }),
@@ -420,9 +420,9 @@ const about = {
         eyebrow: "Nos engagements",
         title: "Ce qui nous *anime*.",
         items: [
-          { icon: "target", title: "Notre mission", text: "Accompagner les territoires et les communautés dans la réalisation de projets utiles, inclusifs et durables." },
-          { icon: "compass", title: "Notre vision", text: "Des coopérations fondées sur la confiance, qui relient l'Afrique, les Caraïbes et l'Europe." },
-          { icon: "heart", title: "Nos valeurs", text: "Écoute, respect des cultures, transparence, exigence et sens de l'intérêt général." },
+          { icon: "target", title: "Notre mission", text: "Contribuer au renforcement des relations institutionnelles et à la promotion du développement économique durable, notamment au profit de la République du Bénin." },
+          { icon: "compass", title: "Notre ambition", text: "Renforcer la coopération des communes à l'international, l'attractivité économique et le développement durable du Bénin." },
+          { icon: "heart", title: "Notre engagement", text: "Agir dans le respect des cadres institutionnels et diplomatiques, avec constance et rigueur." },
         ],
       },
     }),
@@ -432,8 +432,8 @@ const about = {
       fields: [eyebrow, area("quote", "Citation", undefined, 4), area("text", "Texte", undefined, 4), text("name", "Nom"), text("role", "Fonction"), image("image", "Photo")],
       defaults: {
         eyebrow: "Le mot du directeur",
-        quote: "Chaque projet est d'abord une rencontre : entre des territoires, des institutions et des femmes et des hommes qui veulent agir ensemble.",
-        text: "Texte provisoire : le mot du directeur sera ajouté prochainement.",
+        quote: "L'ensemble de nos actions témoigne de l'engagement constant du cabinet dans l'accompagnement du renforcement de la coopération des communes à l'international, de l'attractivité économique et du développement durable du Bénin.",
+        text: "",
         name: "Endurance Martial B. Fanou",
         role: "Directeur associé, FM Consulting",
         image: photo("fanou-directeur-associe", "Endurance Martial B. Fanou, Directeur associé du cabinet FM Consulting") as Img,
@@ -447,10 +447,10 @@ const about = {
         eyebrow: "Zones d'intervention",
         title: "D'une rive à *l'autre*.",
         items: [
-          { name: "Bénin", detail: "Cotonou, Ouidah, Savè, Grand-Popo…" },
+          { name: "Bénin", detail: "Cotonou, Savè, Ouidah, Tori, Porto-Novo, Grand-Popo, Abomey-Calavi…" },
           { name: "Martinique", detail: "Case-Pilote, Fort-de-France…" },
-          { name: "France", detail: "Collectivités et diaspora" },
-          { name: "Afrique de l'Ouest", detail: "Selon les projets" },
+          { name: "Haïti", detail: "Délégations et investisseurs" },
+          { name: "Europe & États-Unis", detail: "France, Pologne, Espagne, Maryland" },
         ],
       },
     }),
@@ -460,18 +460,19 @@ const about = {
       hideable: true,
       fields: [eyebrow, title(), list("items", "Institutions", "une institution", [text("name", "Nom")], { summary: "name" })],
       defaults: {
-        eyebrow: "Ils ont travaillé avec nous",
-        title: "Institutions et *territoires*.",
+        eyebrow: "Nos interlocuteurs",
+        title: "Institutions *rencontrées*.",
         items: [
-          { name: "Mairie de Ouidah" },
-          { name: "Mairie de Savè" },
-          { name: "Mairie de Grand-Popo" },
-          { name: "Ville de Case-Pilote" },
-          { name: "Ville de Fort-de-France" },
           { name: "Ministère des Affaires étrangères" },
-          { name: "Ministère de l'Enseignement supérieur" },
-          { name: "Fondation Clément" },
-          { name: "Centre communautaire EYA" },
+          { name: "Ministère de l'Enseignement supérieur et de la Recherche scientifique" },
+          { name: "Ministère du Commerce" },
+          { name: "ATDA, Ministère de l'Agriculture" },
+          { name: "APIEX" },
+          { name: "Chambre d'Agriculture du Bénin" },
+          { name: "Chambre des métiers de l'Artisanat" },
+          { name: "Projet Songhaï" },
+          { name: "Mairies de Savè, Ouidah, Tori, Porto-Novo et Grand-Popo" },
+          { name: "Ville de Case-Pilote (Martinique)" },
         ],
       },
     }),
@@ -489,8 +490,8 @@ const services = {
       fields: [eyebrow, title(), area("text", "Texte", undefined, 2), image("image", "Image")],
       defaults: {
         eyebrow: "Nos expertises",
-        title: "Des projets qui ont *du sens*.",
-        text: "Coopération, développement communautaire, culture, éducation : nous accompagnons les projets qui renforcent le lien entre les territoires et leurs habitants.",
+        title: "Six domaines, *une même ambition*.",
+        text: "Coopération internationale, investissements, développement économique, formation, partenariats et représentation institutionnelle, au service du Bénin.",
         image: photo("seance-travail-mesrs", "Séance de travail au MESRS") as Img,
       },
     }),
@@ -512,46 +513,52 @@ const services = {
         title: "Ce que nous *faisons*.",
         items: [
           {
-            icon: "handshake",
-            title: "Coopération décentralisée",
-            text: "Nous rapprochons les collectivités d'Afrique, des Caraïbes et d'Europe autour de partenariats concrets.",
-            points: "Identification des partenaires\nAccords et conventions de coopération\nOrganisation de missions et de délégations",
-            image: photo("signature-accords-cooperation-2025", "Signature des accords de coopération"),
-          },
-          {
-            icon: "community",
-            title: "Développement communautaire",
-            text: "Nous aidons les communautés et les associations à concevoir et porter des projets au service de leur territoire.",
-            points: "Diagnostic participatif\nAppui aux centres communautaires et associations\nConception et suivi de projets locaux",
-            image: photo("afrodescendants-ouidah-save", "Rencontre à Ouidah et Savè"),
-          },
-          {
-            icon: "culture",
-            title: "Culture & patrimoine",
-            text: "Nous valorisons le patrimoine matériel et immatériel, la mémoire et les liens avec la diaspora.",
-            points: "Événements culturels et cultuels\nMémoire et diaspora afrodescendante\nÉchanges entre institutions culturelles",
-            image: photo("fondation-clement-fort-de-france", "Visite de la Fondation Clément"),
-          },
-          {
-            icon: "education",
-            title: "Éducation & projets sociaux",
-            text: "Nous favorisons les partenariats éducatifs et les initiatives sociales à destination de la jeunesse.",
-            points: "Partenariats universitaires\nJeunesse et formation\nInclusion sociale",
-            image: photo("marechal-ladekan-mesrs-2024", "Rencontre au Ministère de l'Enseignement supérieur"),
-          },
-          {
-            icon: "institution",
-            title: "Relations institutionnelles",
-            text: "Nous facilitons le dialogue avec les autorités et organisons des rencontres de haut niveau.",
-            points: "Mise en relation avec les ministères et collectivités\nProtocole et préparation des rencontres\nAccompagnement sur place",
-            image: photo("marechal-afoukou-mae", "Au Ministère des Affaires étrangères"),
+            icon: "globe",
+            title: "Coopération internationale",
+            text: "Conception, coordination et accompagnement d'actions de coopération décentralisée entre les communes du Bénin et leurs partenaires étrangers.",
+            points:
+              "Jumelage entre la commune de Savè (Bénin) et la ville de Case-Pilote (Martinique)\nVisite officielle du maire de Savè en Martinique (mai 2024)\nPréparation et signature d'accords de coopération (août 2025)\nAccueil et encadrement de délégations institutionnelles martiniquaises et haïtiennes depuis 2022",
+            image: photo("signature-accords-cooperation-2025", "Signature des accords de coopération, août 2025"),
           },
           {
             icon: "chart",
-            title: "Ingénierie de projet",
-            text: "Nous structurons vos projets, de l'idée au financement, et en suivons l'exécution.",
-            points: "Montage de projets et de dossiers\nRecherche de partenaires techniques et financiers\nSuivi et évaluation",
-            image: photo("echanges-mairie-ouidah", "Séance de travail à la mairie de Ouidah"),
+            title: "Investissements",
+            text: "Conseil et facilitation de projets d'investissement structurants pour le Bénin.",
+            points:
+              "Négociations entre le maire de Savè et la direction générale de la rhumerie Neisson pour l'implantation d'une unité de production à Savè\nPourparlers avec la direction générale des rhums Barbancourt (Haïti) pour l'ouverture d'une filiale au Bénin\nÉchanges avec un laboratoire de produits de santé bio pour l'installation d'une unité de production pharmaceutique",
+            image: photo("echanges-mairie-ouidah", "Séance d'échanges à la mairie de Ouidah"),
+          },
+          {
+            icon: "leaf",
+            title: "Développement économique",
+            text: "Accompagnement de projets de diversification et de valorisation de l'économie locale.",
+            points:
+              "Mise en place d'unités de production de biochar\nÉtudes pour la création d'une usine de production de bois composé\nImplantation d'une unité de maroquinerie haut de gamme\nStructuration d'une filière d'exportation de beurre de karité vers une chaîne agroalimentaire",
+            image: photo("afrodescendants-ouidah-save", "Rencontre avec les maires de Ouidah et de Savè"),
+          },
+          {
+            icon: "education",
+            title: "Formation et renforcement des capacités",
+            text: "Actions de formation et de transfert de compétences entre le Bénin et ses partenaires.",
+            points:
+              "Unité avicole et formation d'étudiants aux techniques avicoles modernes par des investisseurs martiniquais, à Savè\nFormation et professionnalisation des potiers du Bénin par des potiers martiniquais\nCoopération entre l'Université d'Abomey-Calavi et l'Université de Zielona Góra (Pologne)",
+            image: photo("marechal-ladekan-mesrs-2024", "Rencontre au Ministère de l'Enseignement supérieur et de la Recherche scientifique"),
+          },
+          {
+            icon: "handshake",
+            title: "Partenariats institutionnels et sectoriels",
+            text: "Établissement et développement de partenariats structurants.",
+            points:
+              "Recherche de partenariats avec des entités footballistiques et une académie de football parisienne\nDemande de jumelage d'universités d'Outre-Mer avec celles du Bénin\nBourses d'études pour les étudiants africains, notamment en filières scientifiques\nCoopération entre la mairie de Grand-Popo, Agoué et deux collectivités de Martinique\nParticipation au programme PartiCiP au DEL avec des investisseurs afrodescendants (décembre 2024)",
+            image: photo("seance-travail-mesrs", "Séance de travail au MESRS"),
+          },
+          {
+            icon: "institution",
+            title: "Représentation institutionnelle",
+            text: "Missions de représentation, d'appui institutionnel et de promotion internationale du Bénin.",
+            points:
+              "Dépôt et suivi de candidatures aux fonctions de consul du Bénin (Haïti, Martinique)\nPromotion du Bénin auprès d'investisseurs internationaux, dont un événement panafricain d'investisseurs dans le Maryland (États-Unis), reporté à 2026\nProjet de vernissage d'œuvres du Bénin à Sitges (Espagne)",
+            image: photo("marechal-afoukou-mae", "Au Ministère des Affaires étrangères"),
           },
         ] as { icon: string; title: string; text: string; points: string; image: Img }[],
       },
@@ -686,10 +693,11 @@ const contact = {
         title: "Écrivez-nous",
         text: "Nous vous répondons sous 48 heures ouvrées.",
         subjects: [
-          { label: "Coopération décentralisée" },
-          { label: "Développement communautaire" },
-          { label: "Culture & patrimoine" },
-          { label: "Éducation & projets sociaux" },
+          { label: "Coopération internationale" },
+          { label: "Investissement au Bénin" },
+          { label: "Développement économique" },
+          { label: "Formation" },
+          { label: "Partenariat" },
           { label: "Accueil d'une délégation" },
           { label: "Autre demande" },
         ],

@@ -7,11 +7,12 @@ export const SUPABASE_ANON_KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY as stri
 export const isConfigured = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 
 export const CATEGORIES = [
-  "Coopération décentralisée",
-  "Développement communautaire",
-  "Culture & patrimoine",
-  "Éducation & recherche",
-  "Diplomatie & institutions",
+  "Coopération internationale",
+  "Investissements",
+  "Développement économique",
+  "Formation",
+  "Partenariats",
+  "Représentation institutionnelle",
   "Vie du cabinet",
 ];
 export const IMAGE_WIDTHS = [480, 960, 1600] as const;
