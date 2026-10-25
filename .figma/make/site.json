@@ -1,7 +1,12 @@
 {
-  "description": "Showcases FM CONSULTING with a professional website featuring home, about, services, news, and contact pages aligned with the brand's logo colors.",
+  "title": "FM Consulting · Conseil stratégique, coopération internationale et investissement au Bénin",
+  "description": "FM Consulting, cabinet de conseil stratégique : coopération internationale, investissement, développement économique, formation et représentation institutionnelle, au service du Bénin et de ses partenaires.",
+  "language": "fr",
   "robots": {
-    "index": false
+    "index": true
+  },
+  "openGraph": {
+    "image": "https://fmconsultingplus.com/media/photos/signature-accords-cooperation-2025.webp"
   },
   "accessibility": {
     "addBypassLinks": false,

@@ -4,7 +4,7 @@
   "installCommand": "pnpm install",
   "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/((?!assets/|media/|robots.txt).*)", "destination": "/index.html" }],
+  "rewrites": [{ "source": "/((?!assets/|media/|robots.txt|sitemap.xml).*)", "destination": "/index.html" }],
   "headers": [
     {
       "source": "/assets/(.*)",
