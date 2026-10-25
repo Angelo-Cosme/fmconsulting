@@ -65,8 +65,9 @@ function Hero({ data }: { data: Home["hero"] }) {
             <defs>
               <path id="hero-badge-circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
             </defs>
-            <text className="fill-white text-[15px] font-semibold tracking-[0.2em] uppercase">
-              <textPath href="#hero-badge-circle">{`${data.badge} • ${data.badge} • `}</textPath>
+            {/* Le texte est étiré pour faire exactement le tour du cercle (2π × 78 ≈ 490). */}
+            <text className="fill-white text-[14px] font-semibold uppercase">
+              <textPath href="#hero-badge-circle" textLength="486" lengthAdjust="spacing">{`${data.badge} • `}</textPath>
             </text>
           </svg>
           <span className="flex h-14 w-14 items-center justify-center rounded-full bg-sun text-ink transition-transform duration-300 group-hover:rotate-[-45deg]">
