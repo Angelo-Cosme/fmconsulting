@@ -1,28 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,600;1,700&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Manrope', 'Inter', ui-sans-serif, sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
 
-  --color-ink: #0b1530;
-  --color-ink-soft: #1f2a44;
-  --color-muted: #5d6679;
-  --color-line: #e7e9ef;
-  --color-canvas: #fafaf8;
-  --color-mist: #f2f4f8;
-  --color-brand: #1a3a8f;
-  --color-brand-600: #2456b8;
-  --color-brand-50: #eef3fc;
+  --color-ink: #0a1630;
+  --color-ink-soft: #3a4357;
+  --color-muted: #6b7285;
+  --color-line: #e6e8ee;
+  --color-canvas: #ffffff;
+  --color-mist: #f4f5f7;
+  --color-brand: #145ba8;
+  --color-brand-600: #1b75bb;
+  --color-brand-50: #e9f2fb;
+  --color-clay: #e2621b;
+  --color-sun: #f2c230;
   --color-gold: #c8a84b;
+
+  --radius-block: 1.25rem;
 }
 
 @utility container-site {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1320px;
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: 1rem;
+  @variant sm {
+    padding-inline: 1.5rem;
+  }
 }
 
 @utility container-narrow {
@@ -30,6 +37,15 @@
   max-width: calc(768px + 3rem);
   margin-inline: auto;
   padding-inline: 1.5rem;
+}
+
+/* Blocs pleine largeur à coins arrondis, comme dans le template (marge latérale réduite). */
+@utility block-wide {
+  margin-inline: 0.5rem;
+  border-radius: var(--radius-block);
+  @variant md {
+    margin-inline: 1rem;
+  }
 }
 
 @layer base {
@@ -50,12 +66,13 @@
   h2,
   h3,
   h4 {
-    @apply font-display text-ink;
-    letter-spacing: -0.025em;
-    line-height: 1.1;
+    @apply font-display font-semibold text-ink;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
   }
 
-  img {
+  img,
+  video {
     display: block;
     max-width: 100%;
   }
@@ -92,7 +109,7 @@
     @apply font-semibold text-ink;
   }
   .rich-text ul {
-    @apply list-disc pl-6 marker:text-gold;
+    @apply list-disc pl-6 marker:text-brand-600;
   }
   .rich-text ol {
     @apply list-decimal pl-6 marker:text-muted;
@@ -104,7 +121,7 @@
     margin: 0;
   }
   .rich-text blockquote {
-    @apply my-10 border-l-2 border-gold pl-6 font-serif text-2xl leading-snug text-ink italic md:text-3xl;
+    @apply my-10 border-l-2 border-clay pl-6 font-serif text-2xl leading-snug text-ink italic md:text-3xl;
   }
   .rich-text hr {
     @apply my-12 border-line;
@@ -119,34 +136,51 @@
     @apply rounded bg-mist px-1.5 py-0.5 text-[0.9em];
   }
 
+  /* Petite pastille au-dessus des titres (« About us » dans le template) */
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-brand-600 uppercase;
+    @apply inline-flex items-center rounded-full border border-current/15 px-3.5 py-1 text-sm font-medium text-ink;
   }
-  .eyebrow::before {
-    content: '';
-    @apply h-px w-6 bg-gold;
+  .eyebrow-light {
+    @apply border-white/30 text-white;
+  }
+  .eyebrow-solid {
+    @apply border-transparent bg-sun text-ink;
   }
 
+  /* Mot en italique élégant dans les titres (syntaxe *mot* dans le dashboard) */
   .accent {
-    @apply font-serif font-normal italic text-brand-600;
+    @apply font-serif font-semibold italic;
     letter-spacing: -0.01em;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium whitespace-nowrap transition-all duration-200;
+    @apply inline-flex cursor-pointer items-center justify-center gap-3 rounded-full px-6 py-3 text-[15px] font-semibold whitespace-nowrap transition-all duration-300 disabled:cursor-default disabled:opacity-60;
+  }
+  /* Le petit point à droite des boutons du template */
+  .btn .dot {
+    @apply h-2 w-2 rounded-full bg-current transition-transform duration-300;
+  }
+  .btn:hover .dot {
+    transform: scale(1.6);
   }
   .btn-primary {
+    @apply bg-brand-600 text-white hover:bg-brand;
+  }
+  .btn-dark {
     @apply bg-ink text-white hover:bg-brand;
   }
   .btn-outline {
-    @apply border border-line bg-white text-ink hover:border-ink;
+    @apply border border-ink/80 bg-white text-ink hover:bg-ink hover:text-white;
   }
   .btn-light {
-    @apply bg-white text-ink hover:bg-brand-50;
+    @apply bg-white text-ink hover:bg-sun;
+  }
+  .btn-sun {
+    @apply bg-sun text-ink hover:bg-white;
   }
 
   .link-arrow {
-    @apply inline-flex items-center gap-2 text-sm font-medium text-ink;
+    @apply inline-flex items-center gap-2 text-sm font-semibold;
   }
   .link-arrow .arrow {
     @apply transition-transform duration-200;
@@ -166,12 +200,18 @@
   .field-label {
     @apply mb-2 block text-sm font-medium text-ink;
   }
+
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--color-ink) 25%, transparent);
+  }
 }
 
+/* ─── Animations ─────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -180,10 +220,54 @@
 }
 
 .fade-up {
-  animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 .fade-up-delay {
-  animation-delay: 0.12s;
+  animation-delay: 0.15s;
+}
+
+/* Apparition au défilement (composant <Reveal>) */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+
+@keyframes heroZoom {
+  from {
+    scale: 1.1;
+  }
+  to {
+    scale: 1;
+  }
+}
+.hero-zoom {
+  animation: heroZoom 12s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 18s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -194,7 +278,12 @@
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -212,9 +301,16 @@
   border-radius: 1rem;
   cursor: grab;
 }
-.tiptap img.ProseMirror-selectednode {
+.tiptap img.ProseMirror-selectednode,
+.tiptap video.ProseMirror-selectednode {
   outline: 3px solid var(--color-brand-600);
   outline-offset: 3px;
+}
+.tiptap video {
+  max-height: 480px;
+  margin-inline: auto;
+  border-radius: 1rem;
+  background: var(--color-ink);
 }
 .tiptap div[data-youtube-video] iframe {
   width: 100%;

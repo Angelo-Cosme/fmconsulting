@@ -1,11 +1,13 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import { Layout } from "./components/Layout";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Services } from "./pages/Services";
+import { Media } from "./pages/Media";
 import { News } from "./pages/News";
 import { NewsPost } from "./pages/NewsPost";
 import { Contact } from "./pages/Contact";
+import { NotFound } from "./pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -18,11 +20,18 @@ export const router = createBrowserRouter([
     Component: Layout,
     children: [
       { index: true, Component: Home },
-      { path: "about", Component: About },
-      { path: "services", Component: Services },
-      { path: "news", Component: News },
-      { path: "news/:slug", Component: NewsPost },
+      { path: "cabinet", Component: About },
+      { path: "expertises", Component: Services },
+      { path: "mediatheque", Component: Media },
+      { path: "actualites", Component: News },
+      { path: "actualites/:slug", Component: NewsPost },
       { path: "contact", Component: Contact },
+      // Anciennes adresses
+      { path: "about", loader: () => redirect("/cabinet") },
+      { path: "services", loader: () => redirect("/expertises") },
+      { path: "news", loader: () => redirect("/actualites") },
+      { path: "news/:slug", loader: ({ params }) => redirect(`/actualites/${params.slug}`) },
+      { path: "*", Component: NotFound },
     ],
   },
 ]);

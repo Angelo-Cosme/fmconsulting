@@ -1,87 +1,113 @@
-import { CtaBand, PageHeader, SectionHeading } from "@/components/ui";
-
-const values = [
-  { title: "Lorem Ipsum", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore." },
-  { title: "Dolor Sit", desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo." },
-  { title: "Consectetur", desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." },
-  { title: "Adipiscing", desc: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id." },
-];
+import { useEffect } from "react";
+import { usePage } from "@/content/SiteContent";
+import { PostImage } from "@/components/news";
+import { Icon } from "@/components/icons";
+import { CtaBand, Paragraphs, PageHero, Reveal, SectionTitle } from "@/components/ui";
 
 export function About() {
+  const { header, intro, values, director, territories, partners } = usePage("about");
+
+  useEffect(() => {
+    document.title = "Le cabinet · FM Consulting";
+  }, []);
+
   return (
     <>
-      <PageHeader
-        eyebrow="À propos"
-        title={
-          <>
-            À propos de <span className="accent">FM Consulting</span>
-          </>
-        }
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      />
+      <PageHero eyebrow={header.eyebrow} title={header.title} text={header.text} image={header.image} />
 
-      {/* STORY */}
-      <section className="container-site py-20 md:py-28">
-        <div className="grid items-center gap-12 md:grid-cols-2 md:gap-20">
-          <div className="relative">
-            <img
-              src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&h=1000&fit=crop&auto=format"
-              alt="Bureaux de FM Consulting"
-              className="aspect-[4/5] w-full rounded-3xl object-cover"
-            />
-            <div className="absolute right-4 bottom-4 rounded-2xl bg-white px-6 py-5 shadow-sm">
-              <p className="font-display text-3xl font-semibold">2008</p>
-              <p className="mt-1 text-xs text-muted">Année de création</p>
-            </div>
+      {/* Qui sommes-nous */}
+      <section className="container-site py-24 md:py-32">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-6">
+            <SectionTitle eyebrow={intro.eyebrow} title={intro.title} />
+            <Reveal className="mt-8 space-y-5 text-lg leading-relaxed text-ink-soft">
+              <Paragraphs text={intro.text} />
+            </Reveal>
           </div>
-          <div>
-            <span className="eyebrow">Notre histoire</span>
-            <h2 className="mt-5 text-3xl font-semibold md:text-4xl">
-              Lorem ipsum dolor sit amet <span className="accent">consectetur adipiscing.</span>
-            </h2>
-            <div className="mt-8 space-y-5 leading-relaxed text-muted">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-              <p>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                officia deserunt mollit anim id est laborum.
-              </p>
-              <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                architecto beatae vitae dicta sunt explicabo.
-              </p>
-            </div>
-          </div>
+          <Reveal delay={150} className="lg:col-span-6">
+            <PostImage image={intro.image} sizes="(min-width: 1024px) 640px, 100vw" className="aspect-[4/5] w-full rounded-[var(--radius-block)] lg:aspect-[4/4.6]" />
+          </Reveal>
         </div>
       </section>
 
-      {/* VALUES */}
-      <section className="border-y border-line bg-white">
-        <div className="container-site py-20 md:py-28">
-          <SectionHeading
-            eyebrow="Nos valeurs"
-            title={
-              <>
-                Ce qui nous <span className="accent">guide.</span>
-              </>
-            }
-          />
-          <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
-            {values.map((v, i) => (
-              <div key={v.title} className="bg-white p-8">
-                <span className="font-display text-sm text-muted">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-10 text-xl font-semibold">{v.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{v.desc}</p>
+      {/* Mission, vision, valeurs */}
+      {values.visible && (
+        <section className="block-wide bg-mist py-24 md:py-32">
+          <div className="container-site">
+            <SectionTitle eyebrow={values.eyebrow} title={values.title} center />
+            <div className="mt-14 grid gap-6 md:grid-cols-3">
+              {values.items.map((item, i) => (
+                <Reveal key={i} delay={i * 120} className={`rounded-2xl p-8 md:p-10 ${i === 1 ? "bg-brand-600 text-white" : "bg-white"}`}>
+                  <span className={`flex h-14 w-14 items-center justify-center rounded-full ${i === 1 ? "bg-white/15" : "bg-brand-50 text-brand-600"}`}>
+                    <Icon name={item.icon} className="h-7 w-7" />
+                  </span>
+                  <h3 className="mt-8 text-2xl text-current">{item.title}</h3>
+                  <p className="mt-4 leading-relaxed opacity-80">{item.text}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Mot du directeur */}
+      {director.visible && (
+        <section className="container-site py-24 md:py-32">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-20">
+            <Reveal className="lg:col-span-5">
+              <PostImage image={director.image} sizes="(min-width: 1024px) 520px, 100vw" className="aspect-[4/5] w-full rounded-[var(--radius-block)]" />
+            </Reveal>
+            <Reveal delay={150} className="lg:col-span-7">
+              {director.eyebrow && <span className="eyebrow">{director.eyebrow}</span>}
+              <blockquote className="mt-8 font-serif text-3xl leading-snug font-medium text-ink italic md:text-[2.6rem]">« {director.quote} »</blockquote>
+              {director.text && (
+                <div className="mt-8 space-y-4 leading-relaxed text-ink-soft">
+                  <Paragraphs text={director.text} />
+                </div>
+              )}
+              <div className="mt-10 flex items-center gap-4 border-t border-line pt-8">
+                <span className="h-px w-10 bg-clay" aria-hidden="true" />
+                <div>
+                  <p className="font-display text-lg font-bold">{director.name}</p>
+                  <p className="text-sm text-muted">{director.role}</p>
+                </div>
               </div>
-            ))}
+            </Reveal>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Zones d'intervention */}
+      {territories.visible && (
+        <section className="block-wide bg-ink py-24 text-white md:py-32">
+          <div className="container-site">
+            <SectionTitle eyebrow={territories.eyebrow} title={territories.title} light />
+            <div className="mt-14 grid border-t border-white/15 sm:grid-cols-2 lg:grid-cols-4">
+              {territories.items.map((item, i) => (
+                <Reveal key={i} delay={i * 100} className="border-b border-white/15 py-8 sm:pr-8 lg:border-r lg:border-b-0 lg:px-8 lg:first:pl-0 lg:last:border-r-0">
+                  <p className="font-display text-sm font-semibold text-sun">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="mt-4 text-3xl text-white">{item.name}</h3>
+                  <p className="mt-2 text-white/60">{item.detail}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Institutions et territoires */}
+      {partners.visible && partners.items.length > 0 && (
+        <section className="container-site py-24 md:py-32">
+          <SectionTitle eyebrow={partners.eyebrow} title={partners.title} center />
+          <Reveal className="mt-14 flex flex-wrap justify-center gap-3">
+            {partners.items.map((p, i) => (
+              <span key={i} className="rounded-full border border-line px-6 py-3 font-display text-lg font-semibold tracking-tight text-ink-soft">
+                {p.name}
+              </span>
+            ))}
+          </Reveal>
+        </section>
+      )}
 
       <CtaBand />
     </>

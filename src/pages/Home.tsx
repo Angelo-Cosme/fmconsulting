@@ -1,260 +1,441 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import heroBg from "@/imports/header-image-fmconsulting.jpg";
+import { usePage } from "@/content/SiteContent";
+import type { PageContent } from "@/content/pages";
 import { fetchPosts } from "@/lib/news";
-import { PostCard, PostCardSkeleton, useAsync } from "@/components/news";
-import { Arrow, Check, CtaBand, SectionHeading } from "@/components/ui";
+import { PostImage, PostRow, VideoPlayer, useAsync } from "@/components/news";
+import { Icon } from "@/components/icons";
+import { Arrow, Button, Counter, CtaBand, Eyebrow, Paragraphs, PhoneIcon, phoneHref, Reveal, Rich, SectionTitle, SmartLink } from "@/components/ui";
 
-const services = [
-  {
-    title: "Lorem ipsum dolor sit",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim.",
-  },
-  {
-    title: "Consectetur adipiscing",
-    desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure.",
-  },
-  {
-    title: "Sed do eiusmod tempor",
-    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat.",
-  },
-  {
-    title: "Incididunt ut labore",
-    desc: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum sed perspiciatis.",
-  },
-];
-
-const stats = [
-  { value: "15+", label: "Lorem ipsum" },
-  { value: "300+", label: "Dolor sit amet" },
-  { value: "120+", label: "Consectetur" },
-  { value: "98%", label: "Adipiscing elit" },
-];
-
-const strengths = [
-  "Lorem ipsum dolor sit amet consectetur",
-  "Sed do eiusmod tempor incididunt labore",
-  "Ut enim ad minim veniam quis nostrud",
-  "Duis aute irure dolor reprehenderit",
-];
-
-const testimonials = [
-  {
-    quote:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    author: "Lorem Ipsum",
-    role: "Dolor Sit, Amet Consectetur",
-  },
-  {
-    quote:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute.",
-    author: "Adipiscing Elit",
-    role: "Sed Do, Eiusmod Tempor",
-  },
-  {
-    quote:
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint.",
-    author: "Incididunt Labore",
-    role: "Dolore Magna, Aliqua Enim",
-  },
-];
+type Home = PageContent<"home">;
 
 export function Home() {
+  const page = usePage("home");
+
+  useEffect(() => {
+    document.title = "FM Consulting · Développement communautaire, social et culturel";
+  }, []);
+
   return (
     <>
-      {/* HERO */}
-      <section className="container-site pt-12 pb-20 md:pt-20 md:pb-28">
-        <div className="grid items-end gap-10 md:grid-cols-12">
-          <div className="fade-up md:col-span-8">
-            <span className="eyebrow">Cabinet de conseil · Cotonou & Paris</span>
-            <h1 className="mt-6 text-5xl font-semibold md:text-7xl">
-              Lorem ipsum dolor,
-              <br />
-              <span className="accent">sit amet</span> consectetur.
-            </h1>
-          </div>
-          <div className="fade-up fade-up-delay md:col-span-4">
-            <p className="text-lg leading-relaxed text-muted">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/contact" className="btn btn-primary">
-                Nous contacter <Arrow />
-              </Link>
-              <Link to="/services" className="btn btn-outline">
-                Nos services
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="fade-up fade-up-delay relative mt-14 overflow-hidden rounded-3xl md:mt-20">
-          <img
-            src={heroBg}
-            alt="Deux consultants FM Consulting en réunion"
-            className="aspect-[4/3] w-full object-cover md:aspect-[21/9]"
-          />
-          <div className="absolute bottom-4 left-4 hidden rounded-2xl bg-white/90 px-5 py-4 backdrop-blur md:block">
-            <p className="text-xs text-muted">Depuis 2008</p>
-            <p className="font-display text-sm font-semibold">Lorem ipsum dolor sit amet</p>
-          </div>
-        </div>
-
-        <dl className="mt-12 grid grid-cols-2 gap-y-10 md:grid-cols-4">
-          {stats.map((s, i) => (
-            <div key={s.label} className={`flex flex-col px-1 md:px-8 ${i > 0 ? "md:border-l md:border-line" : ""} md:first:pl-0`}>
-              <dt className="order-2 mt-2 text-sm text-muted">{s.label}</dt>
-              <dd className="order-1 font-display text-4xl font-semibold tracking-tight md:text-5xl">{s.value}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      {/* SERVICES */}
-      <section className="border-t border-line bg-white">
-        <div className="container-site py-20 md:py-28">
-          <SectionHeading
-            eyebrow="Expertises"
-            title={
-              <>
-                Lorem ipsum dolor sit amet, <span className="accent">consectetur.</span>
-              </>
-            }
-            action={
-              <Link to="/services" className="link-arrow">
-                Voir tous nos services <Arrow />
-              </Link>
-            }
-          />
-          <div className="divide-y divide-line border-y border-line">
-            {services.map((s, i) => (
-              <Link
-                key={s.title}
-                to="/services"
-                className="group grid items-start gap-4 py-8 transition-colors md:grid-cols-12 md:gap-8 md:py-10"
-              >
-                <span className="font-display text-sm text-muted md:col-span-1">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-2xl font-semibold transition-colors group-hover:text-brand-600 md:col-span-4">
-                  {s.title}
-                </h3>
-                <p className="leading-relaxed text-muted md:col-span-6">{s.desc}</p>
-                <span className="hidden justify-end md:col-span-1 md:flex">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-line transition-all group-hover:border-ink group-hover:bg-ink group-hover:text-white">
-                    <Arrow />
-                  </span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHY US */}
-      <section className="container-site py-20 md:py-28">
-        <div className="grid gap-12 md:grid-cols-2 md:gap-20">
-          <div>
-            <span className="eyebrow">Pourquoi nous</span>
-            <h2 className="mt-5 text-3xl font-semibold md:text-5xl">
-              Lorem ipsum dolor sit, <span className="accent">adipiscing.</span>
-            </h2>
-            <p className="mt-6 leading-relaxed text-muted">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-            <Link to="/about" className="btn btn-outline mt-10">
-              À propos de nous <Arrow />
-            </Link>
-          </div>
-          <div className="grid gap-4">
-            <ul className="card divide-y divide-line">
-              {strengths.map((item) => (
-                <li key={item} className="flex items-center gap-4 px-6 py-5">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
-                    <Check />
-                  </span>
-                  <span className="text-ink-soft">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="grid grid-cols-3 gap-4">
-              {[
-                { label: "Lorem ipsum", val: "98%" },
-                { label: "Consectetur", val: "94%" },
-                { label: "Eiusmod", val: "96%" },
-              ].map((b) => (
-                <div key={b.label} className="rounded-2xl bg-mist p-5">
-                  <p className="font-display text-2xl font-semibold">{b.val}</p>
-                  <p className="mt-1 text-xs text-muted">{b.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="border-y border-line bg-white">
-        <div className="container-site py-20 md:py-28">
-          <SectionHeading
-            eyebrow="Témoignages"
-            title={
-              <>
-                Ils nous font <span className="accent">confiance.</span>
-              </>
-            }
-          />
-          <div className="grid gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <figure key={t.author} className="flex flex-col justify-between rounded-2xl bg-canvas p-8">
-                <blockquote className="text-lg leading-relaxed text-ink-soft">
-                  <span className="mb-4 block font-serif text-5xl leading-none text-gold">“</span>
-                  {t.quote}
-                </blockquote>
-                <figcaption className="mt-8 flex items-center gap-3 border-t border-line pt-6">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-ink font-display text-sm font-semibold text-white">
-                    {t.author.charAt(0)}
-                  </span>
-                  <span>
-                    <span className="block text-sm font-semibold">{t.author}</span>
-                    <span className="block text-xs text-muted">{t.role}</span>
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <LatestNews />
-
+      <Hero data={page.hero} />
+      {page.pillars.visible && <Pillars data={page.pillars} />}
+      {page.stats.visible && <Stats data={page.stats} />}
+      {page.about.visible && <About data={page.about} />}
+      {page.work.visible && <Work data={page.work} />}
+      {page.team.visible && <Team data={page.team} />}
+      {page.testimonials.visible && <Testimonials data={page.testimonials} />}
+      {page.marquee.visible && <Marquee data={page.marquee} />}
+      {page.why.visible && <Why data={page.why} />}
+      {page.videos.visible && <Videos data={page.videos} />}
+      {page.faq.visible && <Faq data={page.faq} />}
+      {page.news.visible && <LatestNews data={page.news} />}
       <CtaBand />
     </>
   );
 }
 
-/** Les 3 derniers articles publiés ; la section disparaît s'il n'y en a pas (ou en cas d'erreur). */
-function LatestNews() {
-  const { data: posts, loading } = useAsync(() => fetchPosts({ limit: 3 }), []);
-  if (!loading && !posts?.length) return null;
+// ─── Bandeau d'ouverture ─────────────────────────────────────────────────────
+function Hero({ data }: { data: Home["hero"] }) {
+  return (
+    <section className="block-wide relative min-h-[560px] overflow-hidden bg-ink md:min-h-[min(820px,calc(100vh-7rem))]">
+      <PostImage image={data.image} eager sizes="100vw" className="hero-zoom absolute inset-0 h-full w-full" />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/10" />
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/60 to-transparent" />
+
+      <div className="container-site relative flex min-h-[inherit] flex-col justify-center py-24 md:py-32">
+        <div className="max-w-4xl">
+          <h1 className="fade-up text-[3.4rem] leading-[0.95] text-white sm:text-7xl md:text-8xl lg:text-[7.5rem]">
+            <Rich text={data.title} />
+          </h1>
+          {data.text && <p className="fade-up fade-up-delay mt-8 max-w-xl text-lg leading-relaxed text-white/85 md:text-xl">{data.text}</p>}
+          <div className="fade-up fade-up-delay mt-10">
+            <Button link={data.cta} variant="sun" />
+          </div>
+        </div>
+      </div>
+
+      {data.badge && (
+        <Link
+          to="/contact"
+          className="group absolute right-6 bottom-6 hidden h-40 w-40 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-brand-600 md:flex lg:right-12 lg:bottom-12 lg:h-48 lg:w-48"
+          aria-label={data.badge}
+        >
+          <svg viewBox="0 0 200 200" aria-hidden="true" className="spin-slow absolute inset-0 h-full w-full">
+            <defs>
+              <path id="hero-badge-circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
+            </defs>
+            <text className="fill-white text-[15px] font-semibold tracking-[0.2em] uppercase">
+              <textPath href="#hero-badge-circle">{`${data.badge} • ${data.badge} • `}</textPath>
+            </text>
+          </svg>
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-sun text-ink transition-transform duration-300 group-hover:rotate-[-45deg]">
+            <Arrow className="h-5 w-5" />
+          </span>
+        </Link>
+      )}
+    </section>
+  );
+}
+
+// ─── Trois cartes ────────────────────────────────────────────────────────────
+const TONES: Record<string, { card: string; text: string; link: string; watermark: string }> = {
+  clay: { card: "bg-clay", text: "text-white", link: "text-white", watermark: "text-white/15" },
+  brand: { card: "bg-brand-600", text: "text-white", link: "text-white", watermark: "text-white/15" },
+  mist: { card: "bg-mist", text: "text-ink", link: "text-ink", watermark: "text-ink/[0.06]" },
+};
+
+function Pillars({ data }: { data: Home["pillars"] }) {
+  return (
+    <section className="container-site py-20 md:py-28">
+      <div className="grid gap-6 md:grid-cols-3">
+        {data.items.map((item, i) => {
+          const tone = TONES[item.tone] ?? TONES.mist;
+          return (
+            <Reveal key={i} delay={i * 120} className={`relative flex min-h-[460px] flex-col overflow-hidden rounded-[var(--radius-block)] ${tone.card}`}>
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none absolute top-6 -right-3 font-display text-[110px] leading-none font-extrabold tracking-tighter [writing-mode:vertical-rl] ${tone.watermark}`}
+              >
+                FM
+              </span>
+              <div className={`relative p-8 pb-6 md:p-10 md:pb-6 ${tone.text}`}>
+                <h3 className={`text-3xl ${tone.text}`}>
+                  <Rich text={item.title} />
+                </h3>
+                <p className="mt-4 max-w-xs text-[15px] leading-relaxed opacity-85">{item.text}</p>
+                {item.link?.href && (
+                  <SmartLink href={item.link.href} className={`link-arrow mt-6 ${tone.link}`}>
+                    {item.link.label} <Arrow />
+                  </SmartLink>
+                )}
+              </div>
+              {item.image && (
+                <div className="relative mt-auto px-3 pb-3">
+                  <PostImage image={item.image} sizes="(min-width: 768px) 33vw, 100vw" className="aspect-[16/10] w-full rounded-xl" />
+                </div>
+              )}
+            </Reveal>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+// ─── Chiffres clés ───────────────────────────────────────────────────────────
+function Stats({ data }: { data: Home["stats"] }) {
+  return (
+    <section className="block-wide relative overflow-hidden bg-ink">
+      <PostImage image={data.image} sizes="100vw" className="absolute inset-0 h-full w-full" />
+      <div aria-hidden="true" className="absolute inset-0 bg-ink/70" />
+      <div className="container-site relative grid grid-cols-2 gap-y-10 py-20 md:py-28 lg:grid-cols-4">
+        {data.items.map((item, i) => (
+          <Reveal key={i} delay={i * 100} className="flex justify-center">
+            <div className="flex aspect-square w-full max-w-[280px] flex-col items-center justify-center rounded-full border border-white/20 text-center">
+              <p className="font-display text-5xl font-bold tracking-tight text-white md:text-7xl">
+                <Counter value={item.value} />
+                {item.suffix && <span className="align-super text-3xl text-sun md:text-4xl">{item.suffix}</span>}
+              </p>
+              <p className="mt-2 max-w-[70%] text-sm font-semibold text-white/90 md:text-base">{item.label}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── Présentation ────────────────────────────────────────────────────────────
+function About({ data }: { data: Home["about"] }) {
+  const { contact } = usePage("settings");
+  return (
+    <section className="container-site py-24 md:py-32">
+      <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+        <SectionTitle eyebrow={data.eyebrow} title={data.title} className="lg:col-span-8" />
+        {(data.badgeLabel || data.badgeValue) && (
+          <Reveal className="lg:col-span-4 lg:justify-self-end">
+            <div className="w-64 rounded-2xl border-t-4 border-clay bg-mist bg-[radial-gradient(var(--color-line)_1px,transparent_1px)] p-6 [background-size:14px_14px]">
+              <p className="text-sm font-medium text-ink-soft">{data.badgeLabel}</p>
+              <p className="mt-3 font-display text-4xl leading-none font-extrabold tracking-tight text-clay">{data.badgeValue}</p>
+            </div>
+          </Reveal>
+        )}
+      </div>
+
+      <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <Reveal className="lg:col-span-6">
+          <div className="overflow-hidden rounded-[var(--radius-block)]">
+            <PostImage image={data.image} sizes="(min-width: 1024px) 640px, 100vw" className="aspect-[5/4] w-full" />
+          </div>
+        </Reveal>
+        <Reveal delay={150} className="flex flex-col justify-center lg:col-span-6">
+          <div className="space-y-5 text-lg leading-relaxed text-ink-soft">
+            <Paragraphs text={data.text} />
+          </div>
+          <div className="mt-10 flex flex-col gap-6 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-[16rem] text-ink-soft">{data.question}</p>
+            {contact.phone && (
+              <a href={phoneHref(contact.phone)} className="group flex items-center gap-3 font-semibold">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-ink text-white transition-colors group-hover:bg-brand-600">
+                  <PhoneIcon className="h-4 w-4" />
+                </span>
+                {contact.phone}
+              </a>
+            )}
+          </div>
+          <div className="mt-8">
+            <Button link={data.link} />
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// ─── Réalisations : cartes empilées au défilement ────────────────────────────
+function Work({ data }: { data: Home["work"] }) {
+  return (
+    <section className="pb-12">
+      {data.watermark && (
+        <p aria-hidden="true" className="container-site overflow-hidden text-center font-display text-[17vw] leading-[0.8] font-extrabold tracking-tighter whitespace-nowrap text-mist lg:text-[12rem]">
+          {data.watermark}
+        </p>
+      )}
+      <div className="relative -mt-[4vw] lg:-mt-16">
+        {data.items.map((item, i) => (
+          <article key={i} className="block-wide sticky top-24 mb-6 h-[78vh] min-h-[480px] overflow-hidden bg-ink lg:top-28" style={{ zIndex: i + 1 }}>
+            <PostImage image={item.image} sizes="100vw" className="absolute inset-0 h-full w-full" />
+            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/45 to-transparent" />
+            <div className="container-site relative flex h-full flex-col justify-between py-12 md:py-16">
+              <div className="max-w-xl">
+                <span className="font-display text-sm font-semibold text-white/60">
+                  {String(i + 1).padStart(2, "0")} / {String(data.items.length).padStart(2, "0")}
+                </span>
+                <h3 className="mt-4 text-5xl text-white md:text-7xl">
+                  <Rich text={item.title} />
+                </h3>
+                {item.text && <p className="mt-6 max-w-md text-lg leading-relaxed text-white/80">{item.text}</p>}
+              </div>
+              {item.link?.href && (
+                <div>
+                  <Button link={item.link} variant="light" />
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── Équipe ──────────────────────────────────────────────────────────────────
+function Team({ data }: { data: Home["team"] }) {
+  const cols = data.members.length >= 3 ? "md:grid-cols-3" : data.members.length === 2 ? "md:grid-cols-2 max-w-4xl mx-auto" : "max-w-md mx-auto";
+  return (
+    <section className="container-site py-24 md:py-32">
+      <SectionTitle eyebrow={data.eyebrow} title={data.title} center />
+      <div className={`mt-14 grid gap-6 ${cols}`}>
+        {data.members.map((m, i) => (
+          <Reveal key={i} delay={i * 120} className="group">
+            <div className="relative overflow-hidden rounded-[var(--radius-block)] border border-line bg-mist">
+              <span className="absolute top-5 left-5 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-ink text-xl text-white" aria-hidden="true">
+                +
+              </span>
+              <PostImage image={m.image} sizes="(min-width: 768px) 420px, 100vw" className="aspect-[4/5] w-full transition-transform duration-700 group-hover:scale-[1.04]" />
+            </div>
+            <h3 className="mt-5 text-2xl">{m.name}</h3>
+            <p className="mt-1 text-muted">{m.role}</p>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── Témoignages ─────────────────────────────────────────────────────────────
+function Testimonials({ data }: { data: Home["testimonials"] }) {
+  const [index, setIndex] = useState(0);
+  const items = data.items;
+  if (!items.length) return null;
+  const item = items[index % items.length];
+  const go = (step: number) => setIndex((i) => (i + step + items.length) % items.length);
 
   return (
-    <section className="container-site pt-20 md:pt-28">
-      <SectionHeading
-        eyebrow="Actualités"
-        title="Nos dernières analyses"
-        action={
-          <Link to="/news" className="link-arrow">
-            Toutes les actualités <Arrow />
+    <section className="container-site pb-24 md:pb-32">
+      <div className="relative mx-auto max-w-5xl text-center">
+        <span aria-hidden="true" className="font-serif text-8xl leading-none text-brand-600/30">
+          “
+        </span>
+        <blockquote key={index} className="fade-up -mt-6 text-2xl leading-snug font-semibold tracking-tight md:text-4xl">
+          {item.quote}
+        </blockquote>
+        <p className="mt-8 font-semibold">{item.author}</p>
+        <p className="text-sm text-muted">{item.role}</p>
+        {items.length > 1 && (
+          <div className="mt-8 flex justify-center gap-3 md:absolute md:inset-x-0 md:top-1/2 md:mt-0 md:-translate-y-1/2 md:justify-between">
+            <button onClick={() => go(-1)} aria-label="Témoignage précédent" className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-line bg-white hover:border-ink md:-ml-16">
+              <Arrow className="rotate-180" />
+            </button>
+            <button onClick={() => go(1)} aria-label="Témoignage suivant" className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-line bg-white hover:border-ink md:-mr-16">
+              <Arrow />
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ─── Bandeau défilant ────────────────────────────────────────────────────────
+function Marquee({ data }: { data: Home["marquee"] }) {
+  const words = data.words.map((w) => w.text).filter(Boolean);
+  if (!words.length) return null;
+  const row = (
+    <div className="flex shrink-0 items-center">
+      {words.map((w, i) => (
+        <span key={i} className="flex items-center">
+          <span className="text-outline px-6 font-display text-7xl font-extrabold tracking-tight uppercase md:text-[9rem]">{w}</span>
+          <span aria-hidden="true" className="h-4 w-4 rounded-full bg-sun md:h-6 md:w-6" />
+        </span>
+      ))}
+    </div>
+  );
+  return (
+    <section aria-label={words.join(", ")} className="overflow-hidden py-12 md:py-16">
+      <div className="marquee-track flex w-max" aria-hidden="true">
+        {row}
+        {row}
+      </div>
+    </section>
+  );
+}
+
+// ─── Pourquoi nous choisir ───────────────────────────────────────────────────
+const WHY_TONES = ["bg-white/15 text-white backdrop-blur-md border border-white/20", "bg-clay text-white", "bg-sun text-ink", "bg-white text-ink"];
+const WHY_PLACES = ["lg:col-start-1 lg:row-start-1", "lg:col-start-3 lg:row-start-1 lg:mt-24", "lg:col-start-1 lg:row-start-3 lg:-mt-10", "lg:col-start-3 lg:row-start-3 lg:mt-6"];
+
+function Why({ data }: { data: Home["why"] }) {
+  return (
+    <section className="block-wide relative overflow-hidden bg-ink">
+      <PostImage image={data.image} sizes="100vw" className="absolute inset-0 h-full w-full" />
+      <div aria-hidden="true" className="absolute inset-0 bg-ink/65" />
+      <div className="container-site relative grid gap-6 py-20 md:py-28 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_minmax(0,1fr)] lg:grid-rows-[auto_auto_auto]">
+        <div className="text-center lg:col-start-2 lg:row-start-2 lg:py-16">
+          <Reveal>
+            <Eyebrow tone="solid">{data.eyebrow}</Eyebrow>
+            <h2 className="mt-6 text-4xl text-white md:text-6xl">
+              <Rich text={data.title} />
+            </h2>
+          </Reveal>
+        </div>
+        {data.items.map((item, i) => (
+          <Reveal key={i} delay={i * 100} className={`rounded-2xl p-7 lg:max-w-xs ${WHY_TONES[i % 4]} ${WHY_PLACES[i % 4]} ${i % 2 ? "lg:justify-self-end" : ""}`}>
+            <div className="flex justify-end">
+              <Icon name={item.icon} className="h-8 w-8" />
+            </div>
+            <h3 className="mt-8 text-xl text-current">{item.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed opacity-85">{item.text}</p>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── Vidéos ──────────────────────────────────────────────────────────────────
+function Videos({ data }: { data: Home["videos"] }) {
+  return (
+    <section className="container-site py-24 md:py-32">
+      <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <SectionTitle eyebrow={data.eyebrow} title={data.title}>
+          {data.text && <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{data.text}</p>}
+        </SectionTitle>
+        <Button link={data.link} variant="outline" className="self-start md:self-auto" />
+      </div>
+      <div className="-mx-4 mt-14 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible">
+        {data.items.map((item, i) => (
+          <Reveal key={i} delay={i * 100} className="w-[72vw] shrink-0 snap-start sm:w-[42vw] lg:w-auto">
+            <VideoPlayer video={item.video} title={item.title} className="aspect-[9/16]" />
+            <p className="mt-4 text-[15px] leading-snug font-semibold">{item.title}</p>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── Questions fréquentes ────────────────────────────────────────────────────
+function Faq({ data }: { data: Home["faq"] }) {
+  const [open, setOpen] = useState(0);
+  return (
+    <section className="container-site pb-24 md:pb-32">
+      <div className="grid gap-12 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <SectionTitle eyebrow={data.eyebrow} title={data.title} />
+          <Reveal className="mt-10">
+            <Button link={data.link} />
+          </Reveal>
+        </div>
+        <Reveal className="rounded-2xl bg-mist p-2 lg:col-span-7">
+          {data.items.map((item, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={i} className="mb-2 rounded-xl bg-white last:mb-0">
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? -1 : i)}
+                  aria-expanded={isOpen}
+                  className="flex w-full cursor-pointer items-center justify-between gap-6 px-6 py-5 text-left font-semibold"
+                >
+                  <span>
+                    {String(i + 1).padStart(2, "0")}. {item.question}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-lg transition-colors ${
+                      isOpen ? "border-clay bg-clay text-white" : "border-ink text-ink"
+                    }`}
+                  >
+                    {isOpen ? "−" : "+"}
+                  </span>
+                </button>
+                <div className={`grid transition-[grid-template-rows] duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                  <div className="overflow-hidden">
+                    <p className="px-6 pb-6 leading-relaxed text-ink-soft">{item.answer}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// ─── Dernières actualités ────────────────────────────────────────────────────
+function LatestNews({ data }: { data: Home["news"] }) {
+  const { data: posts } = useAsync(() => fetchPosts({ limit: 3 }), []);
+  if (!posts?.length) return null;
+  return (
+    <section className="block-wide bg-mist py-24 md:py-32">
+      <div className="container-site">
+        <SectionTitle eyebrow={data.eyebrow} title={data.title} center />
+        <div className="mt-14 space-y-5">
+          {posts.map((post, i) => (
+            <Reveal key={post.id} delay={i * 100}>
+              <PostRow post={post} />
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-12 text-center">
+          <Link to="/actualites" className="btn btn-dark">
+            Toutes les actualités
+            <span className="dot" aria-hidden="true" />
           </Link>
-        }
-      />
-      <div className="grid gap-8 md:grid-cols-3">
-        {posts
-          ? posts.map((p) => <PostCard key={p.id} post={p} aspect="aspect-[4/3]" />)
-          : [0, 1, 2].map((i) => <PostCardSkeleton key={i} aspect="aspect-[4/3]" />)}
+        </div>
       </div>
     </section>
   );

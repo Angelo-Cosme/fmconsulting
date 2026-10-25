@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { fetchPost, fetchPosts, formatDate } from "@/lib/news";
-import { Arrow, SocialIcon, socialLinks } from "@/components/ui";
-import { NewsError, PostCard, PostImage, useAsync } from "@/components/news";
+import { SHARE_ICONS, SocialIcon } from "@/components/ui";
+import { NewsError, PostCard, PostImage, PostMeta, useAsync } from "@/components/news";
 import RichText from "@/components/RichText";
+
+const WHATSAPP_ICON =
+  "M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z";
 
 export function NewsPost() {
   const { slug = "" } = useParams();
@@ -37,7 +40,7 @@ export function NewsPost() {
     return (
       <div className="container-site py-32 text-center">
         <h1 className="text-3xl font-semibold">Article introuvable</h1>
-        <Link to="/news" className="btn btn-outline mt-8">
+        <Link to="/actualites" className="btn btn-outline mt-8">
           ← Retour aux actualités
         </Link>
       </div>
@@ -53,14 +56,14 @@ export function NewsPost() {
         {/* Header */}
         <header className="container-narrow pt-12 pb-10 md:pt-20">
           <nav className="text-sm text-muted" aria-label="Fil d'Ariane">
-            <Link to="/news" className="transition-colors hover:text-ink">
+            <Link to="/actualites" className="transition-colors hover:text-ink">
               ← Actualités
             </Link>
           </nav>
-          <p className="mt-10 text-sm text-muted">
-            <span className="font-medium text-brand-600">{post.category}</span> · {formatDate(post.published_at)}
-          </p>
-          <h1 className="fade-up mt-4 text-4xl font-semibold md:text-5xl">{post.title}</h1>
+          <div className="mt-10">
+            <PostMeta post={post} />
+          </div>
+          <h1 className="fade-up mt-6 text-4xl md:text-6xl">{post.title}</h1>
           {post.author_name && (
             <div className="mt-8 flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-ink font-display text-sm font-semibold text-white">
@@ -68,7 +71,7 @@ export function NewsPost() {
               </span>
               <span>
                 <span className="block text-sm font-semibold">{post.author_name}</span>
-                <span className="block text-xs text-muted">Consultant FM Consulting</span>
+                <span className="block text-xs text-muted">{formatDate(post.published_at)}</span>
               </span>
             </div>
           )}
@@ -80,7 +83,7 @@ export function NewsPost() {
               image={post.cover}
               eager
               sizes="(min-width: 1200px) 1152px, 100vw"
-              className="aspect-[16/9] w-full rounded-3xl md:aspect-[21/9]"
+              className="aspect-[16/9] max-h-[78vh] w-full rounded-[var(--radius-block)]"
             />
           </div>
         )}
@@ -93,16 +96,14 @@ export function NewsPost() {
           <div className="mt-16 flex flex-wrap items-center justify-between gap-6 border-t border-line pt-8">
             <div className="flex items-center gap-2">
               <span className="mr-2 text-sm text-muted">Partager</span>
-              {socialLinks
-                .filter((s) => s.name === "LinkedIn" || s.name === "Facebook")
-                .map((s) => (
+              {[
+                { name: "LinkedIn", path: SHARE_ICONS.linkedin, href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}` },
+                { name: "Facebook", path: SHARE_ICONS.facebook, href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}` },
+                { name: "WhatsApp", path: WHATSAPP_ICON, href: `https://wa.me/?text=${encodeURIComponent(`${post.title} ${pageUrl}`)}` },
+              ].map((s) => (
                   <a
                     key={s.name}
-                    href={
-                      s.name === "LinkedIn"
-                        ? `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`
-                        : `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`
-                    }
+                    href={s.href}
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`Partager sur ${s.name}`}
@@ -114,7 +115,8 @@ export function NewsPost() {
                 ))}
             </div>
             <Link to="/contact" className="btn btn-primary">
-              Discutons-en <Arrow />
+              Discutons-en
+              <span className="dot" aria-hidden="true" />
             </Link>
           </div>
         </div>

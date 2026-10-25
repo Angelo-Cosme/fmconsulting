@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import type { ImageRef, RichMark, RichNode } from "@/lib/news";
+import { isImage, type ImageRef, type RichMark, type RichNode } from "@/lib/news";
 import { parseYouTubeId } from "@/lib/youtube";
-import { LiteYouTube, PostImage } from "./news";
+import { LiteYouTube, PostImage, VideoPlayer } from "./news";
 
 // Affiche le contenu de l'éditeur (JSON Tiptap) sans charger Tiptap côté visiteurs.
 // Seuls les nœuds et marques connus sont rendus ; le reste est ignoré.
@@ -40,7 +40,7 @@ function applyMark(mark: RichMark, child: ReactNode, key: number): ReactNode {
 }
 
 function isImageRef(attrs: Record<string, unknown> | undefined): attrs is ImageRef & Record<string, unknown> {
-  return Boolean(attrs && typeof attrs.path === "string" && Array.isArray(attrs.widths) && attrs.widths.length);
+  return isImage(attrs);
 }
 
 function renderNode(node: RichNode, key: number, title: string): ReactNode {
@@ -72,6 +72,20 @@ function renderNode(node: RichNode, key: number, title: string): ReactNode {
           {node.attrs.alt && <figcaption>{node.attrs.alt}</figcaption>}
         </figure>
       ) : null;
+    case "video": {
+      const attrs = node.attrs ?? {};
+      if (typeof attrs.src !== "string" || !attrs.src) return null;
+      const width = Number(attrs.width) || 16;
+      const height = Number(attrs.height) || 9;
+      const poster = typeof attrs.poster === "string" && attrs.poster ? { url: attrs.poster, width, height, alt: "" } : null;
+      const caption = typeof attrs.caption === "string" ? attrs.caption : "";
+      return (
+        <figure key={key} className={height > width ? "mx-auto max-w-sm" : undefined}>
+          <VideoPlayer video={{ src: attrs.src, poster }} title={caption || title} className="" ratio={width / height} />
+          {caption && <figcaption>{caption}</figcaption>}
+        </figure>
+      );
+    }
     case "youtube": {
       const id = typeof node.attrs?.src === "string" ? parseYouTubeId(node.attrs.src) : null;
       return id ? (

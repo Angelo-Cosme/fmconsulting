@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
-import { CATEGORIES, type ImageRef, type Post, type RichDoc, imageUrl } from "@/lib/news";
-import { deleteImages, supabase, uploadImage } from "./supabase";
-import { emptyDoc, isEmptyDoc, postImages, slugify } from "./content";
+import { CATEGORIES, type ImageRef, type Post, type RichDoc } from "@/lib/news";
+import { cleanupStorage, supabase } from "./supabase";
+import { emptyDoc, isEmptyDoc, slugify } from "./content";
+import { ImageInput } from "./fields";
 import RichEditor from "./RichEditor";
 
 type Form = {
@@ -92,11 +93,8 @@ export default function PostEditor() {
       return setMessage({ type: "error", text });
     }
 
-    // Supprime du stockage les images retirées de l'article depuis le dernier enregistrement.
-    if (saved.current) {
-      const kept = new Set(postImages(payload).map((img) => img.path));
-      await deleteImages(postImages(saved.current).filter((img) => !kept.has(img.path)));
-    }
+    // Supprime du stockage les images et vidéos retirées de l'article depuis le dernier enregistrement.
+    if (saved.current) await cleanupStorage(saved.current, { cover: payload.cover, content: payload.content });
     saved.current = { cover: payload.cover, content: payload.content };
 
     setForm((f) => ({ ...f, slug, status }));
@@ -110,7 +108,7 @@ export default function PostEditor() {
   return (
     <>
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <Link to="/admin" className="text-sm text-muted hover:text-ink">
+        <Link to="/admin/posts" className="text-sm text-muted hover:text-ink">
           ← Tous les articles
         </Link>
         {message && (
@@ -169,7 +167,7 @@ export default function PostEditor() {
                 <button disabled={saving} onClick={() => save("draft")} className="btn btn-outline w-full">
                   Repasser en brouillon
                 </button>
-                <Link to={`/news/${form.slug}`} target="_blank" className="block text-center text-sm text-muted hover:text-ink">
+                <Link to={`/actualites/${form.slug}`} target="_blank" className="block text-center text-sm text-muted hover:text-ink">
                   Voir l'article ↗
                 </Link>
               </>
@@ -188,12 +186,12 @@ export default function PostEditor() {
           <div className="card space-y-5 p-6">
             <div>
               <span className="field-label">Image de couverture</span>
-              <ImageField image={form.cover} onChange={(cover) => update({ cover })} />
+              <ImageInput value={form.cover} onChange={(cover) => update({ cover })} />
             </div>
             <div>
               <label htmlFor="category" className="field-label">Catégorie</label>
               <select id="category" value={form.category} onChange={(e) => update({ category: e.target.value })} className="field">
-                {CATEGORIES.map((c) => (
+                {(CATEGORIES.includes(form.category) ? CATEGORIES : [form.category, ...CATEGORIES]).map((c) => (
                   <option key={c}>{c}</option>
                 ))}
               </select>
@@ -213,67 +211,11 @@ export default function PostEditor() {
                 }}
                 className="field font-mono text-xs"
               />
-              <p className="mt-1 truncate text-xs text-muted">/news/{form.slug || "…"}</p>
+              <p className="mt-1 truncate text-xs text-muted">/actualites/{form.slug || "…"}</p>
             </div>
           </div>
         </aside>
       </div>
     </>
-  );
-}
-
-function ImageField({ image, onChange, wide = false }: { image: ImageRef | null; onChange: (image: ImageRef | null) => void; wide?: boolean }) {
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
-  const input = useRef<HTMLInputElement>(null);
-
-  async function pick(file: File | undefined) {
-    if (!file) return;
-    setBusy(true);
-    setError("");
-    try {
-      onChange(await uploadImage(file, image?.alt ?? ""));
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setBusy(false);
-      if (input.current) input.current.value = "";
-    }
-  }
-
-  return (
-    <div>
-      <input ref={input} type="file" accept="image/*" className="hidden" onChange={(e) => pick(e.target.files?.[0])} />
-      {image ? (
-        <div className="space-y-2">
-          <img src={imageUrl(image.path, image.widths[Math.min(1, image.widths.length - 1)], image.ext)} alt={image.alt} className={`w-full rounded-xl bg-mist object-cover ${wide ? "max-h-96" : "aspect-[4/3]"}`} />
-          <input value={image.alt} onChange={(e) => onChange({ ...image, alt: e.target.value })} placeholder="Texte alternatif (description de l'image)" aria-label="Texte alternatif" className="field" />
-          <div className="flex gap-3 text-sm">
-            <button type="button" disabled={busy} onClick={() => input.current?.click()} className="cursor-pointer text-brand-600 hover:underline">
-              {busy ? "Envoi…" : "Remplacer"}
-            </button>
-            <button type="button" onClick={() => onChange(null)} className="cursor-pointer text-red-600 hover:underline">
-              Retirer
-            </button>
-          </div>
-        </div>
-      ) : (
-        <button
-          type="button"
-          disabled={busy}
-          onClick={() => input.current?.click()}
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={(e) => {
-            e.preventDefault();
-            pick(e.dataTransfer.files[0]);
-          }}
-          className={`flex w-full cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-line bg-canvas text-sm text-muted hover:border-ink hover:text-ink ${wide ? "py-12" : "aspect-[4/3]"}`}
-        >
-          {busy ? "Compression et envoi…" : "Choisir ou déposer une image"}
-          {!busy && <span className="mt-1 text-xs">Compressée automatiquement</span>}
-        </button>
-      )}
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
-    </div>
   );
 }

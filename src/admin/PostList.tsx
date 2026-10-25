@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { formatDate, type Post } from "@/lib/news";
 import { PostImage } from "@/components/news";
-import { deleteImages, supabase } from "./supabase";
-import { postImages } from "./content";
+import { cleanupStorage, supabase } from "./supabase";
 
 type Row = Pick<Post, "id" | "slug" | "title" | "category" | "status" | "cover" | "content" | "published_at" | "updated_at">;
 
@@ -28,7 +27,7 @@ export default function PostList() {
     if (!confirm(`Supprimer définitivement « ${post.title} » ?`)) return;
     const { error } = await supabase.from("posts").delete().eq("id", post.id);
     if (error) return alert(error.message);
-    await deleteImages(postImages(post));
+    await cleanupStorage({ cover: post.cover, content: post.content }, null);
     setPosts((list) => list?.filter((p) => p.id !== post.id) ?? null);
   }
 
@@ -36,7 +35,7 @@ export default function PostList() {
     <>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold">Actualités</h1>
+          <h1 className="text-3xl font-semibold">Articles (actualités)</h1>
           <p className="mt-1 text-sm text-muted">
             {posts ? `${posts.length} article${posts.length > 1 ? "s" : ""}` : "Chargement…"}
           </p>
@@ -79,7 +78,7 @@ export default function PostList() {
               </span>
               <div className="flex shrink-0 items-center gap-1 text-sm">
                 {post.status === "published" && (
-                  <Link to={`/news/${post.slug}`} target="_blank" className="rounded-lg px-3 py-2 text-muted hover:bg-mist hover:text-ink">
+                  <Link to={`/actualites/${post.slug}`} target="_blank" className="rounded-lg px-3 py-2 text-muted hover:bg-mist hover:text-ink">
                     Voir
                   </Link>
                 )}
