@@ -1,0 +1,8 @@
+node_modules
+dist
+img
+.kilo
+.env
+.env.*
+supabase/.temp
+supabase/.branches
