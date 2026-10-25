@@ -6,3 +6,4 @@ img
 .env.*
 supabase/.temp
 supabase/.branches
+documents

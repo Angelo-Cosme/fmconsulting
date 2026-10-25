@@ -20,3 +20,7 @@ logs/
 /.plugins/
 /.opencode-skills/
 .vercel
+
+# Documents de travail du cabinet (contenus à intégrer), non publiés
+/documents/
+/img/
