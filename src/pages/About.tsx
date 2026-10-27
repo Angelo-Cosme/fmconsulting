@@ -101,8 +101,9 @@ export function About() {
           <SectionTitle eyebrow={partners.eyebrow} title={partners.title} center />
           <Reveal className="mt-14 flex flex-wrap justify-center gap-3">
             {partners.items.map((p, i) => (
-              <span key={i} className="rounded-full border border-line px-6 py-3 font-display text-lg font-semibold tracking-tight text-ink-soft">
-                {p.name}
+              <span key={i} className="rounded-2xl border border-line px-6 py-3 text-center">
+                <span className="block font-display text-lg font-semibold tracking-tight text-ink-soft">{p.name}</span>
+                {p.detail && <span className="mt-0.5 block text-sm text-muted">{p.detail}</span>}
               </span>
             ))}
           </Reveal>
