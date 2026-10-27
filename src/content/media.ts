@@ -20,6 +20,11 @@ const PHOTOS = {
   "marechal-ladekan-mesrs-2024": [1028, 1080],
   "fondation-clement-fort-de-france": [640, 480],
   "delegation-case-pilote-ouidah": [1080, 720],
+  // Portraits de l'équipe : détourés et recadrés sur un fond commun (800 × 1000).
+  "equipe-endurance-martial-fanou": [800, 1000],
+  "equipe-romain-da-costa": [800, 1000],
+  "equipe-brice-crinot": [800, 1000],
+  "equipe-jean-benoit-alokpo": [800, 1000],
 } as const;
 
 const VIDEOS = {

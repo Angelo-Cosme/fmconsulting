@@ -262,8 +262,23 @@ const home = {
         members: [
           {
             name: "Endurance Martial B. Fanou",
-            role: "Directeur associé",
-            image: photo("fanou-directeur-associe", "Endurance Martial B. Fanou, Directeur associé du cabinet FM Consulting"),
+            role: "Directeur associé, Manager général, Consultant senior",
+            image: photo("equipe-endurance-martial-fanou", "Endurance Martial B. Fanou, Directeur associé du cabinet FM Consulting"),
+          },
+          {
+            name: "Romain Da Costa",
+            role: "Expert-consultant en diplomatie territoriale et coopération décentralisée",
+            image: photo("equipe-romain-da-costa", "Romain Da Costa, expert-consultant du cabinet FM Consulting"),
+          },
+          {
+            name: "Brice Crinot",
+            role: "Expert-consultant formateur en transformation des organisations et pilotage de performance",
+            image: photo("equipe-brice-crinot", "Brice Crinot, expert-consultant formateur du cabinet FM Consulting"),
+          },
+          {
+            name: "Pr Jean Benoît Alokpo",
+            role: "Consultant formateur, expert en communication diplomatique",
+            image: photo("equipe-jean-benoit-alokpo", "Pr Jean Benoît Alokpo, consultant formateur du cabinet FM Consulting"),
           },
         ] as { name: string; role: string; image: Img }[],
       },
