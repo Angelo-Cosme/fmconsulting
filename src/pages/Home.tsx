@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { usePage } from "@/content/SiteContent";
 import type { PageContent } from "@/content/pages";
@@ -345,6 +345,45 @@ function Why({ data }: { data: Home["why"] }) {
 
 // ─── Vidéos ──────────────────────────────────────────────────────────────────
 function Videos({ data }: { data: Home["videos"] }) {
+  const track = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ start: true, end: false });
+
+  // Active ou grise les chevrons selon la position du défilement.
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    const update = () => setEdges({ start: el.scrollLeft <= 4, end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 4 });
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [data.items.length]);
+
+  // Défile d'une carte vers la gauche ou la droite.
+  const scroll = (dir: 1 | -1) => {
+    const el = track.current;
+    const card = el?.firstElementChild as HTMLElement | null;
+    if (!el || !card) return;
+    el.scrollBy({ left: dir * (card.offsetWidth + 20), behavior: "smooth" });
+  };
+
+  const chevron = (dir: 1 | -1, disabled: boolean) => (
+    <button
+      type="button"
+      onClick={() => scroll(dir)}
+      disabled={disabled}
+      aria-label={dir === 1 ? "Vidéos suivantes" : "Vidéos précédentes"}
+      className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ink text-ink transition-colors enabled:hover:bg-ink enabled:hover:text-white disabled:cursor-default disabled:border-line disabled:text-line"
+    >
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" className={`h-4 w-4 ${dir === -1 ? "rotate-180" : ""}`}>
+        <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </button>
+  );
+
   return (
     <section className="container-site py-24 md:py-32">
       <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
@@ -353,9 +392,18 @@ function Videos({ data }: { data: Home["videos"] }) {
         </SectionTitle>
         <Button link={data.link} variant="outline" className="self-start md:self-auto" />
       </div>
-      <div className="-mx-4 mt-14 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible">
+      {data.items.length > 1 && (
+        <div className="mt-10 flex gap-3">
+          {chevron(-1, edges.start)}
+          {chevron(1, edges.end)}
+        </div>
+      )}
+      <div
+        ref={track}
+        className="-mx-4 mt-8 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pb-4 [scrollbar-width:none] sm:mx-0 sm:scroll-px-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
+      >
         {data.items.map((item, i) => (
-          <Reveal key={i} delay={i * 100} className="w-[72vw] shrink-0 snap-start sm:w-[42vw] lg:w-auto">
+          <Reveal key={i} delay={Math.min(i, 3) * 100} className="w-[72vw] shrink-0 snap-start sm:w-[calc((100%-20px)/2)] md:w-[calc((100%-40px)/3)] lg:w-[calc((100%-60px)/4)]">
             <VideoPlayer video={item.video} title={item.title} className="aspect-[9/16]" />
             <p className="mt-4 text-[15px] leading-snug font-semibold">{item.title}</p>
           </Reveal>
