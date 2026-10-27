@@ -242,9 +242,6 @@ function Team({ data }: { data: Home["team"] }) {
         {data.members.map((m, i) => (
           <Reveal key={i} delay={i * 120} className="group">
             <div className="relative overflow-hidden rounded-[var(--radius-block)] border border-line bg-mist">
-              <span className="absolute top-5 left-5 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-ink text-xl text-white" aria-hidden="true">
-                +
-              </span>
               <PostImage image={m.image} sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw" className="aspect-[4/5] w-full transition-transform duration-700 group-hover:scale-[1.04]" />
             </div>
             <h3 className="mt-5 text-2xl lg:text-xl xl:text-2xl">{m.name}</h3>
