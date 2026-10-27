@@ -263,9 +263,6 @@ function Footer() {
           <p>
             © {new Date().getFullYear()} {footer.copyright}
           </p>
-          <Link to="/admin" className="hover:text-white" rel="nofollow">
-            Espace administration
-          </Link>
         </div>
       </div>
     </footer>
