@@ -278,7 +278,7 @@ const home = {
           {
             name: "Dr Patrick Voglozin",
             role: "Consultant-expert, économiste financier agréé près de la BOAD, du FSA, etc. Spécialiste en montage financier et recherche d'investisseurs",
-            image: photo("equipe-patrick-voglozin", "Dr Patrick Voglozin, consultant-expert du cabinet FM Consulting"),
+            image: photo("equipe-patrick-voglozin-portrait", "Dr Patrick Voglozin, consultant-expert du cabinet FM Consulting"),
           },
           {
             name: "Pr Jean Benoît Alokpo",
@@ -460,7 +460,7 @@ const about = {
         text: "",
         name: "Endurance Martial B. Fanou",
         role: "Directeur associé, FM Consulting",
-        image: photo("fanou-directeur-associe", "Endurance Martial B. Fanou, Directeur associé du cabinet FM Consulting") as Img,
+        image: photo("fanou-directeur-associe-2026", "Endurance Martial B. Fanou, Directeur associé du cabinet FM Consulting") as Img,
       },
     }),
     territories: section({
