@@ -263,7 +263,7 @@ const home = {
           {
             name: "Endurance Martial B. Fanou",
             role: "Directeur associé, Manager général, Consultant senior",
-            image: photo("equipe-endurance-martial-fanou", "Endurance Martial B. Fanou, Directeur associé du cabinet FM Consulting"),
+            image: photo("equipe-endurance-martial-fanou-2026", "Endurance Martial B. Fanou, Directeur associé du cabinet FM Consulting"),
           },
           {
             name: "Romain Da Costa",
