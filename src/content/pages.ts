@@ -276,6 +276,11 @@ const home = {
             image: photo("equipe-brice-crinot", "Brice Crinot, expert-consultant formateur du cabinet FM Consulting"),
           },
           {
+            name: "Dr Patrick Voglozin",
+            role: "Consultant-expert, économiste financier agréé près de la BOAD, du FSA, etc. Spécialiste en montage financier et recherche d'investisseurs",
+            image: photo("equipe-patrick-voglozin", "Dr Patrick Voglozin, consultant-expert du cabinet FM Consulting"),
+          },
+          {
             name: "Pr Jean Benoît Alokpo",
             role: "Consultant formateur, expert en communication diplomatique",
             image: photo("equipe-jean-benoit-alokpo", "Pr Jean Benoît Alokpo, consultant formateur du cabinet FM Consulting"),

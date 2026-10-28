@@ -25,6 +25,7 @@ const PHOTOS = {
   "equipe-romain-da-costa": [800, 1000],
   "equipe-brice-crinot": [800, 1000],
   "equipe-jean-benoit-alokpo": [800, 1000],
+  "equipe-patrick-voglozin": [800, 1000],
 } as const;
 
 const VIDEOS = {

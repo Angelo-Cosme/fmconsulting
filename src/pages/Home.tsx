@@ -234,18 +234,20 @@ function Work({ data }: { data: Home["work"] }) {
 // ─── Équipe ──────────────────────────────────────────────────────────────────
 function Team({ data }: { data: Home["team"] }) {
   const n = data.members.length;
-  const cols = n === 4 || n > 6 ? "sm:grid-cols-2 lg:grid-cols-4" : n >= 3 ? "sm:grid-cols-2 lg:grid-cols-3" : n === 2 ? "sm:grid-cols-2 max-w-4xl mx-auto" : "max-w-md mx-auto";
+  // Cartes centrées : une rangée incomplète (ex. 3 + 2) reste alignée au milieu.
+  const width = n === 4 || n > 6 ? "lg:w-[calc((100%-72px)/4)]" : n === 1 ? "sm:w-[420px]" : n === 2 ? "lg:w-[calc((100%-24px)/2)] lg:max-w-[420px]" : "lg:w-[calc((100%-48px)/3)]";
   return (
     <section className="container-site py-24 md:py-32">
       <SectionTitle eyebrow={data.eyebrow} title={data.title} center />
-      <div className={`mt-14 grid gap-6 ${cols}`}>
+      <div className="mt-14 flex flex-wrap justify-center gap-x-6 gap-y-12">
         {data.members.map((m, i) => (
-          <Reveal key={i} delay={i * 120} className="group">
+          <Reveal key={i} delay={(i % 3) * 120} className={`group w-full sm:w-[calc((100%-24px)/2)] ${width}`}>
             <div className="relative overflow-hidden rounded-[var(--radius-block)] border border-line bg-mist">
-              <PostImage image={m.image} sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw" className="aspect-[4/5] w-full transition-transform duration-700 group-hover:scale-[1.04]" />
+              <PostImage image={m.image} sizes="(min-width: 1024px) 420px, (min-width: 640px) 50vw, 100vw" className="aspect-[4/5] w-full transition-transform duration-700 group-hover:scale-[1.04]" />
             </div>
-            <h3 className="mt-5 text-2xl lg:text-xl xl:text-2xl">{m.name}</h3>
-            <p className="mt-1 leading-snug text-muted">{m.role}</p>
+            <h3 className="mt-6 text-2xl font-extrabold tracking-tight text-ink">{m.name}</h3>
+            <span aria-hidden="true" className="mt-3 block h-1 w-10 rounded-full bg-clay" />
+            <p className="mt-3 leading-snug text-muted">{m.role}</p>
           </Reveal>
         ))}
       </div>
