@@ -278,7 +278,7 @@ const home = {
           {
             name: "Dr Patrick Voglozin",
             role: "Consultant-expert, économiste financier agréé près de la BOAD, du FSA, etc. Spécialiste en montage financier et recherche d'investisseurs",
-            image: photo("equipe-patrick-voglozin-portrait", "Dr Patrick Voglozin, consultant-expert du cabinet FM Consulting"),
+            image: photo("equipe-patrick-voglozin-fond", "Dr Patrick Voglozin, consultant-expert du cabinet FM Consulting"),
           },
           {
             name: "Pr Jean Benoît Alokpo",
