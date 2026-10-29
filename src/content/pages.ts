@@ -144,12 +144,12 @@ const home = {
       defaults: {
         eyebrow: "Activité en cours",
         title: "Cap sur le *SMCL 2026*.",
-        text: "Le cabinet FM Consulting prépare le Salon des Maires et des Collectivités Locales (SMCL), du 24 au 26 novembre 2026.\n\nLa communication a été lancée lors de l'Assemblée générale de l'Association nationale des communes du Bénin (ANCB) en août 2026.",
-        video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB, août 2026") as Vid,
+        text: "Le cabinet FM Consulting accompagne l'Association nationale des communes du Bénin (ANCB) dans la préparation de sa participation au Salon des Maires et des Collectivités Locales (SMCL) de Paris.\n\nCet accompagnement a été présenté lors de l'Assemblée générale de l'ANCB.",
+        video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB") as Vid,
         facts: [
           { label: "Événement", value: "Salon des Maires et des Collectivités Locales" },
-          { label: "Dates", value: "24 – 26 novembre 2026" },
           { label: "Lieu", value: "Paris" },
+          { label: "Rôle du cabinet", value: "Accompagnement de l'ANCB" },
         ] as { label: string; value: string }[],
         link: { label: "Découvrir la mission", href: "/smcl-2026" } as Link,
       },
@@ -375,7 +375,7 @@ const home = {
         title: "Nos missions *sur le terrain*.",
         text: "Délégations, rencontres institutionnelles et temps forts culturels : revivez quelques-unes de nos actions.",
         items: [
-          { title: "En cours : préparation du SMCL 2026, communication à l'Assemblée générale de l'ANCB", video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB, août 2026") },
+          { title: "En cours : accompagnement de l'ANCB pour le SMCL 2026, communication à l'Assemblée générale de l'ANCB", video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB") },
           { title: "Hommes d'affaires martiniquais reçus par la Ministre de l'Enseignement supérieur", video: video("ministre-mesrs-hommes-affaires-martiniquais", "Rencontre des hommes d'affaires martiniquais avec la Ministre de l'Enseignement supérieur") },
           { title: "Délégation de Martinique à la mairie de Ouidah", video: video("delegation-martinique-ouidah", "Délégation de Martinique à la mairie de Ouidah") },
           { title: "Délégation de Martinique à la mairie de Savè", video: video("delegation-martinique-save", "Délégation de Martinique à la mairie de Savè") },
@@ -657,7 +657,7 @@ const media = {
         eyebrow: "Vidéos",
         title: "Sur le *terrain*.",
         items: [
-          { title: "Nos activités en cours : communication en préparation du Salon des Maires et des Collectivités Locales (SMCL, 24 au 26 novembre 2026) lors de l'Assemblée générale de l'ANCB en août 2026", video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB, août 2026") },
+          { title: "Nos activités en cours : communication lors de l'Assemblée générale de l'ANCB, que le cabinet accompagne dans la préparation du Salon des Maires et des Collectivités Locales (SMCL)", video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB") },
           { title: "Visite des hommes d'affaires martiniquais : rencontre avec la Ministre de l'Enseignement supérieur du Bénin", video: video("ministre-mesrs-hommes-affaires-martiniquais", "Rencontre des hommes d'affaires martiniquais avec la Ministre de l'Enseignement supérieur") },
           { title: "Visite de la délégation de Martinique à la mairie de Ouidah", video: video("delegation-martinique-ouidah", "Délégation de Martinique à la mairie de Ouidah") },
           { title: "Visite de la délégation de Martinique à la mairie de Savè", video: video("delegation-martinique-save", "Délégation de Martinique à la mairie de Savè") },
@@ -765,13 +765,13 @@ const contact = {
 
 // ─── Mission SMCL Paris 2026 (activité en cours) ─────────────────────────────
 // Textes tirés de la « Fiche signalétique du SMCL 2026 » et de la feuille de route
-// « Coopération décentralisée & diplomatie territoriale » (AG de l'ANCB, 18 août 2026).
+// « Coopération décentralisée & diplomatie territoriale » (AG de l'ANCB).
 const SMCL_SIGNUP = "https://smcl.beninois-du-monde.com/inscription";
 
 const smcl = {
   title: "Mission SMCL 2026",
   path: "/smcl-2026",
-  help: "Page dédiée à l'activité en cours : la mission des communes du Bénin au Salon des Maires de Paris (novembre 2026).",
+  help: "Page dédiée à l'activité en cours : l'accompagnement de l'ANCB pour le Salon des Maires et des Collectivités Locales de Paris.",
   sections: {
     header: section({
       label: "En-tête de page",
@@ -786,16 +786,16 @@ const smcl = {
         link("secondary", "Bouton secondaire"),
       ],
       defaults: {
-        eyebrow: "Activité en cours · ANCB × FM Consulting",
+        eyebrow: "Activité en cours · Accompagnement de l'ANCB",
         title: "SMCL Paris 2026 : le *tremplin international* des communes du Bénin.",
-        text: "Sous la tutelle de l'ANCB, le cabinet FM Consulting invite les élus locaux du Bénin au Salon des Maires et des Collectivités Locales, à Paris, pour une diplomatie territoriale incisive et offensive.",
-        video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB, août 2026") as Vid,
+        text: "Le cabinet FM Consulting accompagne l'Association nationale des communes du Bénin (ANCB) dans la préparation de la participation des élus locaux béninois au Salon des Maires et des Collectivités Locales de Paris, pour une diplomatie territoriale incisive et offensive.",
+        video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB") as Vid,
         facts: [
-          { label: "Dates", value: "24 – 26 novembre 2026" },
           { label: "Lieu", value: "Paris Expo, Porte de Versailles" },
+          { label: "Rôle du cabinet", value: "Accompagnement de l'ANCB" },
           { label: "Communes concernées", value: "Les 77 communes du Bénin" },
         ] as { label: string; value: string }[],
-        countdown: "2026-11-24",
+        countdown: "",
         cta: { label: "Inscrire ma commune", href: SMCL_SIGNUP } as Link,
         secondary: { label: "Nous contacter", href: "/contact" } as Link,
       },
@@ -807,22 +807,22 @@ const smcl = {
       defaults: {
         eyebrow: "Pourquoi aujourd'hui ?",
         title: "L'action internationale n'est plus un luxe : *c'est un levier*.",
-        text: "Vos territoires regorgent d'opportunités. Pour libérer leur plein potentiel, l'action internationale est devenue un levier stratégique de développement local, de financement et d'attractivité.\n\nÀ l'heure où les 77 communes du Bénin renouvellent la gouvernance de leur association faîtière, l'ANCB, le renforcement de l'action extérieure des collectivités locales est un levier déterminant d'attractivité, de transfert de compétences et de financement du développement local.\n\nLe Salon des Maires et des Collectivités Locales est le plus grand rassemblement d'élus territoriaux d'Europe. Notre ambition est simple : faire de cet événement le grand tremplin international du municipalisme béninois.",
+        text: "Vos territoires regorgent d'opportunités. Pour libérer leur plein potentiel, l'action internationale est devenue un levier stratégique de développement local, de financement et d'attractivité.\n\nÀ l'heure où les 77 communes du Bénin renouvellent la gouvernance de leur association faîtière, l'ANCB, le renforcement de l'action extérieure des collectivités locales est un levier déterminant d'attractivité, de transfert de compétences et de financement du développement local.\n\nLe Salon des Maires et des Collectivités Locales est le plus grand rassemblement d'élus territoriaux d'Europe. Aux côtés de l'ANCB, notre ambition est d'en faire le grand tremplin international du municipalisme béninois.",
         quote: "Mettre à disposition des maires béninois plus de 30 ans d'expérience au cœur des collectivités territoriales françaises, un accès direct aux réseaux d'élus en France et une maîtrise des dispositifs d'appui institutionnels et financiers (MEAE, AFD, Union européenne).",
         quoteAuthor: "L'expert-conseil de FM Consulting, cadre dirigeant retraité de la fonction publique territoriale française",
       },
     }),
     ambition: section({
-      label: "Ce que nous allons construire",
+      label: "Notre appui à l'ANCB",
       hideable: true,
       fields: [eyebrow, title(), list("items", "Engagements", "un engagement", [icon(), text("title", "Titre"), area("text", "Texte", undefined, 4)], { summary: "title" })],
       defaults: {
         eyebrow: "Concrètement",
-        title: "Ce que nous allons *construire ensemble*.",
+        title: "Notre appui *à l'ANCB*.",
         items: [
-          { icon: "institution", title: "Vous positionner au plus haut niveau", text: "Des rencontres exclusives avec l'Association des Maires de France (AMF), Cités Unies France et de nombreuses collectivités territoriales françaises en quête de nouveaux partenariats." },
-          { icon: "chart", title: "Mobiliser les financements publics", text: "Une séance de travail de haut niveau entre l'ANCB, l'Ambassade du Bénin en France et la Direction de la coopération décentralisée du ministère français des Affaires étrangères, pour débloquer des guichets comme le FICOL de l'AFD." },
-          { icon: "target", title: "Sécuriser l'ingénierie", text: "Pas un simple voyage, mais une méthodologie rigoureuse de bout en bout : de la formulation de vos fiches-projets avant le départ jusqu'à la signature de conventions et leur suivi opérationnel en 2027." },
+          { icon: "institution", title: "Positionner les communes au plus haut niveau", text: "Faciliter des rencontres avec l'Association des Maires de France (AMF), Cités Unies France et de nombreuses collectivités territoriales françaises en quête de nouveaux partenariats." },
+          { icon: "chart", title: "Mobiliser les financements publics", text: "Contribuer à la préparation d'une séance de travail de haut niveau entre l'ANCB, l'Ambassade du Bénin en France et la Direction de la coopération décentralisée du ministère français des Affaires étrangères, pour accéder à des guichets comme le FICOL de l'AFD." },
+          { icon: "target", title: "Sécuriser l'ingénierie", text: "Pas un simple voyage, mais une méthodologie rigoureuse de bout en bout : de la formulation de vos fiches-projets avant le départ jusqu'à la signature de conventions et leur suivi opérationnel." },
         ] as { icon: string; title: string; text: string }[],
       },
     }),
@@ -899,17 +899,17 @@ const smcl = {
       fields: [
         eyebrow,
         title(),
-        list("items", "Étapes", "une étape", [text("period", "Période"), area("action", "Actions clés", undefined, 2), area("result", "Livrables et résultats attendus", undefined, 2)], { summary: "period" }),
+        list("items", "Étapes", "une étape", [text("period", "Étape"), area("action", "Actions clés", undefined, 2), area("result", "Livrables et résultats attendus", undefined, 2)], { summary: "period" }),
       ],
       defaults: {
-        eyebrow: "Août – décembre 2026",
+        eyebrow: "Étape par étape",
         title: "Le calendrier *de la mission*.",
         items: [
-          { period: "18 – 31 août 2026", action: "Restitution après l'AG de l'ANCB et cartographie des besoins des 77 communes.", result: "Relevé des intentions de coopération et constitution du groupe de travail ANCB." },
-          { period: "Septembre 2026", action: "Cadrage technique des projets ; contacts avec l'AMF, Cités Unies France et le MEAE.", result: "Catalogue officiel des projets de coopération des communes béninoises." },
-          { period: "Octobre 2026", action: "Organisation logistique et calage de l'agenda institutionnel à Paris.", result: "Planning officiel des rendez-vous B2B et confirmation de la session DAECT / Ambassade." },
-          { period: "Novembre 2026", action: "Déploiement de la délégation à Paris (SMCL) et rencontres au MEAE.", result: "Signatures de déclarations d'intention et d'accords d'engagement partenarial." },
-          { period: "Décembre 2026", action: "Bilan stratégique, contractualisation et dépôt des dossiers de cofinancement.", result: "Feuille de route 2027 de la coopération décentralisée Bénin – France." },
+          { period: "Diagnostic", action: "Restitution après l'AG de l'ANCB et cartographie des besoins des 77 communes.", result: "Relevé des intentions de coopération et constitution du groupe de travail ANCB." },
+          { period: "Cadrage technique", action: "Cadrage technique des projets ; contacts avec l'AMF, Cités Unies France et le MEAE.", result: "Catalogue officiel des projets de coopération des communes béninoises." },
+          { period: "Préparation logistique", action: "Préparation logistique et calage de l'agenda institutionnel à Paris.", result: "Planning officiel des rendez-vous B2B et confirmation de la session DAECT / Ambassade." },
+          { period: "Le salon à Paris", action: "Déploiement de la délégation à Paris (SMCL) et rencontres au MEAE.", result: "Signatures de déclarations d'intention et d'accords d'engagement partenarial." },
+          { period: "Bilan et suivi", action: "Bilan stratégique, contractualisation et dépôt des dossiers de cofinancement.", result: "Feuille de route de la coopération décentralisée Bénin – France." },
         ] as { period: string; action: string; result: string }[],
       },
     }),
@@ -922,7 +922,7 @@ const smcl = {
         title: "Nos *recommandations*.",
         items: [
           { title: "Une commission permanente « Coopération décentralisée & Attractivité »", text: "Créée au sein de l'ANCB pour assurer le suivi technique des partenariats." },
-          { title: "Le SMCL 2026 à l'agenda prioritaire des maires", text: "Inscrire le déplacement dès le renouvellement du bureau du 18 août." },
+          { title: "Le SMCL 2026 à l'agenda prioritaire des maires", text: "Inscrire le déplacement dès le renouvellement du bureau." },
           { title: "Une approche par pôles territoriaux", text: "Mutualiser, par pôles ou intercommunalités, les projets présentés aux partenaires français et internationaux." },
         ] as { title: string; text: string }[],
       },
