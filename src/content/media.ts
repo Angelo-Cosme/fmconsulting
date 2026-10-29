@@ -38,6 +38,7 @@ const VIDEOS = {
   "delegation-martinique-save": [480, 848],
   "case-pilote-centre-eya": [540, 960],
   "ministre-mesrs-hommes-affaires-martiniquais": [480, 854],
+  "ancb-smcl-2026": [480, 854],
 } as const;
 
 export type PhotoName = keyof typeof PHOTOS;

@@ -19,6 +19,7 @@ export function Home() {
   return (
     <>
       <Hero data={page.hero} />
+      {page.current.visible && <Current data={page.current} />}
       {page.pillars.visible && <Pillars data={page.pillars} />}
       {page.stats.visible && <Stats data={page.stats} />}
       {page.about.visible && <About data={page.about} />}
@@ -75,6 +76,49 @@ function Hero({ data }: { data: Home["hero"] }) {
           </span>
         </Link>
       )}
+    </section>
+  );
+}
+
+// ─── Activité en cours ───────────────────────────────────────────────────────
+function Current({ data }: { data: Home["current"] }) {
+  return (
+    <section className="block-wide bg-ink py-20 text-white md:py-28">
+      <div className="container-site grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <Reveal className="lg:col-span-7">
+          <span className="inline-flex items-center gap-2.5 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sun opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-sun" />
+            </span>
+            {data.eyebrow}
+          </span>
+          <h2 className="mt-6 text-4xl leading-[1.05] text-white md:text-6xl">
+            <Rich text={data.title} />
+          </h2>
+          <div className="mt-6 max-w-xl space-y-4 text-lg leading-relaxed text-white/80">
+            <Paragraphs text={data.text} />
+          </div>
+          {data.facts.length > 0 && (
+            <dl className="mt-10 grid gap-6 border-t border-white/15 pt-8 sm:grid-cols-3">
+              {data.facts.map((f, i) => (
+                <div key={i}>
+                  <dt className="text-xs font-semibold tracking-wider text-white/55 uppercase">{f.label}</dt>
+                  <dd className="mt-2 font-semibold leading-snug">{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          <div className="mt-10">
+            <Button link={data.link} variant="sun" />
+          </div>
+        </Reveal>
+        {data.video && (
+          <Reveal delay={150} className="mx-auto w-full max-w-[340px] lg:col-span-5">
+            <VideoPlayer video={data.video} title={data.title.replace(/\*/g, "")} className="aspect-[9/16]" />
+          </Reveal>
+        )}
+      </div>
     </section>
   );
 }

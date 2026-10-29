@@ -130,6 +130,30 @@ const home = {
         badge: "Prendre rendez-vous",
       },
     }),
+    current: section({
+      label: "Activité en cours",
+      hideable: true,
+      fields: [
+        eyebrow,
+        title(),
+        area("text", "Texte", undefined, 4),
+        videoField("video", "Vidéo"),
+        list("facts", "Repères", "un repère", [text("label", "Intitulé"), text("value", "Valeur")], { summary: "label", max: 4 }),
+        link("link", "Bouton"),
+      ],
+      defaults: {
+        eyebrow: "Activité en cours",
+        title: "Cap sur le *SMCL 2026*.",
+        text: "Le cabinet FM Consulting prépare le Salon des Maires et des Collectivités Locales (SMCL), du 24 au 26 novembre 2026.\n\nLa communication a été lancée lors de l'Assemblée générale de l'Association nationale des communes du Bénin (ANCB) en août 2026.",
+        video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB, août 2026") as Vid,
+        facts: [
+          { label: "Événement", value: "Salon des Maires et des Collectivités Locales" },
+          { label: "Dates", value: "24 – 26 novembre 2026" },
+          { label: "Partenaire", value: "ANCB" },
+        ] as { label: string; value: string }[],
+        link: { label: "Nous contacter", href: "/contact" } as Link,
+      },
+    }),
     pillars: section({
       label: "Trois cartes de présentation",
       hideable: true,
@@ -351,6 +375,7 @@ const home = {
         title: "Nos missions *sur le terrain*.",
         text: "Délégations, rencontres institutionnelles et temps forts culturels : revivez quelques-unes de nos actions.",
         items: [
+          { title: "En cours : préparation du SMCL 2026, communication à l'Assemblée générale de l'ANCB", video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB, août 2026") },
           { title: "Hommes d'affaires martiniquais reçus par la Ministre de l'Enseignement supérieur", video: video("ministre-mesrs-hommes-affaires-martiniquais", "Rencontre des hommes d'affaires martiniquais avec la Ministre de l'Enseignement supérieur") },
           { title: "Délégation de Martinique à la mairie de Ouidah", video: video("delegation-martinique-ouidah", "Délégation de Martinique à la mairie de Ouidah") },
           { title: "Délégation de Martinique à la mairie de Savè", video: video("delegation-martinique-save", "Délégation de Martinique à la mairie de Savè") },
@@ -632,6 +657,7 @@ const media = {
         eyebrow: "Vidéos",
         title: "Sur le *terrain*.",
         items: [
+          { title: "Nos activités en cours : communication en préparation du Salon des Maires et des Collectivités Locales (SMCL, 24 au 26 novembre 2026) lors de l'Assemblée générale de l'ANCB en août 2026", video: video("ancb-smcl-2026", "Communication de FM Consulting à l'Assemblée générale de l'ANCB, août 2026") },
           { title: "Visite des hommes d'affaires martiniquais : rencontre avec la Ministre de l'Enseignement supérieur du Bénin", video: video("ministre-mesrs-hommes-affaires-martiniquais", "Rencontre des hommes d'affaires martiniquais avec la Ministre de l'Enseignement supérieur") },
           { title: "Visite de la délégation de Martinique à la mairie de Ouidah", video: video("delegation-martinique-ouidah", "Délégation de Martinique à la mairie de Ouidah") },
           { title: "Visite de la délégation de Martinique à la mairie de Savè", video: video("delegation-martinique-save", "Délégation de Martinique à la mairie de Savè") },
