@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { pages, type PageId } from "@/content/pages";
 import { supabase } from "./supabase";
 
-export const EDITABLE_PAGES: PageId[] = ["home", "about", "services", "media", "news", "contact"];
+export const EDITABLE_PAGES: PageId[] = ["home", "about", "services", "smcl", "media", "news", "contact"];
 
 type Stats = { published: number; drafts: number; unread: number; edited: Record<string, string> };
 

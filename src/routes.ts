@@ -4,6 +4,7 @@ import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Services } from "./pages/Services";
 import { Media } from "./pages/Media";
+import { Smcl } from "./pages/Smcl";
 import { News } from "./pages/News";
 import { NewsPost } from "./pages/NewsPost";
 import { Contact } from "./pages/Contact";
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "cabinet", Component: About },
       { path: "expertises", Component: Services },
+      { path: "smcl-2026", Component: Smcl },
       { path: "mediatheque", Component: Media },
       { path: "actualites", Component: News },
       { path: "actualites/:slug", Component: NewsPost },

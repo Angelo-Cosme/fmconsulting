@@ -4,13 +4,25 @@ import logoSrc from "@/imports/logo-fm-consulting.png";
 import { SiteContentProvider, usePage, useSiteReady } from "@/content/SiteContent";
 import { Arrow, PhoneIcon, phoneHref, SocialLinks } from "./ui";
 
-export const NAV_LINKS = [
+export const NAV_LINKS: { to: string; label: string; end?: boolean; highlight?: boolean }[] = [
   { to: "/", label: "Accueil", end: true },
   { to: "/cabinet", label: "Le cabinet" },
   { to: "/expertises", label: "Expertises" },
+  // Activité en cours, mise en avant dans le menu.
+  { to: "/smcl-2026", label: "SMCL 2026", highlight: true },
   { to: "/mediatheque", label: "Médiathèque" },
   { to: "/actualites", label: "Actualités" },
 ];
+
+/** Pastille clignotante signalant une activité en cours. */
+function LiveDot() {
+  return (
+    <span className="relative flex h-2 w-2" aria-hidden="true">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sun opacity-75" />
+      <span className="relative inline-flex h-2 w-2 rounded-full bg-sun" />
+    </span>
+  );
+}
 
 export function Layout() {
   return (
@@ -87,7 +99,7 @@ function Shell() {
           scrolled || menuOpen ? "bg-white/90 shadow-[0_8px_30px_-12px_rgba(10,22,48,0.18)] backdrop-blur-xl" : "bg-canvas"
         }`}
       >
-        <div className="container-site flex h-20 items-center justify-between gap-6 lg:h-24">
+        <div className="container-site flex h-20 items-center justify-between gap-3 lg:h-24 lg:gap-6">
           <Link to="/" className="shrink-0" aria-label="FM Consulting, accueil">
             <img src={logoSrc} alt="FM Consulting" className="h-11 w-auto object-contain lg:h-12" />
           </Link>
@@ -99,9 +111,18 @@ function Shell() {
                 to={l.to}
                 end={l.end}
                 className={({ isActive }) =>
-                  `rounded-full px-5 py-2.5 text-[15px] font-semibold transition-colors ${isActive ? "bg-white text-brand-600 shadow-sm" : "text-ink hover:text-brand-600"}`
+                  `flex items-center gap-2 rounded-full px-3.5 py-2.5 text-[15px] font-semibold whitespace-nowrap transition-colors xl:px-4 2xl:px-5 ${
+                    l.highlight
+                      ? isActive
+                        ? "bg-sun text-ink shadow-sm"
+                        : "bg-ink text-white hover:bg-brand-600"
+                      : isActive
+                        ? "bg-white text-brand-600 shadow-sm"
+                        : "text-ink hover:text-brand-600"
+                  }`
                 }
               >
+                {l.highlight && <LiveDot />}
                 {l.label}
               </NavLink>
             ))}
@@ -109,11 +130,11 @@ function Shell() {
 
           <div className="hidden items-center gap-4 lg:flex">
             {contact.phone && (
-              <a href={phoneHref(contact.phone)} className="group hidden items-center gap-3 xl:flex">
+              <a href={phoneHref(contact.phone)} className="group hidden items-center gap-3 2xl:flex">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-ink text-white transition-colors group-hover:bg-brand-600">
                   <PhoneIcon />
                 </span>
-                <span className="font-semibold">{contact.phone}</span>
+                <span className="font-semibold whitespace-nowrap">{contact.phone}</span>
               </a>
             )}
             <Link to="/contact" className="btn btn-outline">
@@ -121,6 +142,11 @@ function Shell() {
               <span className="dot" aria-hidden="true" />
             </Link>
           </div>
+
+          <Link to="/smcl-2026" className="ml-auto flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-sm font-semibold text-white lg:hidden">
+            <LiveDot />
+            SMCL 2026
+          </Link>
 
           <button
             className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-mist lg:hidden"
