@@ -305,9 +305,9 @@ const home = {
             image: photo("equipe-patrick-voglozin-fond", "Dr Patrick Voglozin, consultant-expert du cabinet FM Consulting"),
           },
           {
-            name: "Pr Jean Benoît Alokpon",
+            name: "Pr Jean Benoît ALOKPON",
             role: "Consultant formateur, expert en communication diplomatique",
-            image: photo("equipe-jean-benoit-alokpon", "Pr Jean Benoît Alokpon, consultant formateur du cabinet FM Consulting"),
+            image: photo("equipe-jean-benoit-alokpon", "Pr Jean Benoît ALOKPON, consultant formateur du cabinet FM Consulting"),
           },
         ] as { name: string; role: string; image: Img }[],
       },
