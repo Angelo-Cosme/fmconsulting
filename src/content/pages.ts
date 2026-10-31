@@ -953,8 +953,27 @@ export type PageContent<P extends PageId> = {
 export type StoredPage = Record<string, Record<string, unknown> | undefined>;
 
 /** Contenu d'une page : valeurs enregistrées dans le dashboard, complétées par le contenu par défaut. */
-export function mergePage<P extends PageId>(id: P, stored: StoredPage | undefined): PageContent<P> {
+/**
+ * Corrections appliquées au contenu enregistré depuis le dashboard (noms mal orthographiés,
+ * photos renommées). Le dashboard réenregistre la version corrigée à la prochaine publication.
+ */
+const CORRECTIONS: [string, string][] = [
+  ["Pr Jean Benoît Alokpo\"", "Pr Jean Benoît ALOKPON\""],
+  ["Pr Jean Benoît Alokpo,", "Pr Jean Benoît ALOKPON,"],
+  ["equipe-jean-benoit-alokpo.webp", "equipe-jean-benoit-alokpon.webp"],
+  ["equipe-jean-benoit-alokpo-640.webp", "equipe-jean-benoit-alokpon-640.webp"],
+];
+
+function correct(stored: StoredPage | undefined): StoredPage | undefined {
+  if (!stored) return stored;
+  const json = JSON.stringify(stored);
+  const fixed = CORRECTIONS.reduce((text, [from, to]) => text.split(from).join(to), json);
+  return fixed === json ? stored : JSON.parse(fixed);
+}
+
+export function mergePage<P extends PageId>(id: P, raw: StoredPage | undefined): PageContent<P> {
   const def = pages[id] as PageDef;
+  const stored = correct(raw);
   const result: Record<string, Record<string, unknown>> = {};
   for (const [key, sectionDef] of Object.entries(def.sections)) {
     const saved = stored?.[key] ?? {};
