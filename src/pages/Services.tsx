@@ -38,14 +38,24 @@ export function Services() {
                   <p className="mt-4 text-lg leading-relaxed text-ink-soft">{item.text}</p>
                   {points.length > 0 && (
                     <ul className="mt-6 space-y-3">
-                      {points.map((p, j) => (
-                        <li key={j} className="flex gap-3 text-ink-soft">
-                          <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sun text-ink">
-                            <Check />
-                          </span>
-                          {p}
-                        </li>
-                      ))}
+                      {points.map((p, j) => {
+                        const [label, status] = p.split("|").map((part) => part.trim());
+                        return (
+                          <li key={j} className="flex gap-3 text-ink-soft">
+                            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sun text-ink">
+                              <Check />
+                            </span>
+                            <span>
+                              {label}
+                              {status && (
+                                <span className="mt-1.5 block w-fit rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-semibold text-brand-600">
+                                  {status}
+                                </span>
+                              )}
+                            </span>
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </div>

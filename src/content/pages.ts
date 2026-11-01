@@ -557,7 +557,7 @@ const services = {
           "items",
           "Expertises",
           "une expertise",
-          [icon(), text("title", "Titre"), area("text", "Description", undefined, 3), area("points", "Points clés", "Un point par ligne.", 4), image("image", "Image")],
+          [icon(), text("title", "Titre"), area("text", "Description", undefined, 3), area("points", "Points clés", "Un point par ligne. Ajoutez « | statut » en fin de ligne pour afficher un statut (ex. « … | En cours d'étude »).", 4), image("image", "Image")],
           { summary: "title" },
         ),
       ],
@@ -578,7 +578,7 @@ const services = {
             title: "Investissements",
             text: "Conseil et facilitation de projets d'investissement structurants pour le Bénin.",
             points:
-              "Négociations entre le maire de Savè et la direction générale de la rhumerie Neisson pour l'implantation d'une unité de production à Savè\nPourparlers avec la direction générale des rhums Barbancourt (Haïti) pour l'ouverture d'une filiale au Bénin\nÉchanges avec un laboratoire de produits de santé bio pour l'installation d'une unité de production pharmaceutique",
+              "Négociations entre le maire de Savè et la direction générale de la rhumerie Neisson pour l'implantation d'une unité de production à Savè\nPourparlers avec la direction générale des rhums Barbancourt (Haïti) pour l'ouverture d'une filiale au Bénin\nÉchanges avec un laboratoire de produits de santé bio pour l'installation d'une unité de production pharmaceutique | En cours de discussion",
             image: photo("echanges-mairie-ouidah", "Séance d'échanges à la mairie de Ouidah"),
           },
           {
@@ -586,7 +586,7 @@ const services = {
             title: "Développement économique",
             text: "Accompagnement de projets de diversification et de valorisation de l'économie locale.",
             points:
-              "Mise en place d'unités de production de biochar\nÉtudes pour la création d'une usine de production de bois composé\nImplantation d'une unité de maroquinerie haut de gamme\nStructuration d'une filière d'exportation de beurre de karité vers une chaîne agroalimentaire",
+              "Mise en place d'unités de production de biochar | En cours de discussion\nÉtudes pour la création d'une usine de production de bois composé | En cours d'étude\nImplantation d'une unité de maroquinerie haut de gamme | En cours d'étude\nStructuration d'une filière d'exportation de beurre de karité vers une chaîne agroalimentaire | En cours d'étude pour amélioration",
             image: photo("afrodescendants-ouidah-save", "Rencontre avec les maires de Ouidah et de Savè"),
           },
           {
@@ -594,7 +594,7 @@ const services = {
             title: "Formation et renforcement des capacités",
             text: "Actions de formation et de transfert de compétences entre le Bénin et ses partenaires.",
             points:
-              "Unité avicole et formation d'étudiants aux techniques avicoles modernes par des investisseurs martiniquais, à Savè\nFormation et professionnalisation des potiers du Bénin par des potiers martiniquais\nCoopération entre l'Université d'Abomey-Calavi et l'Université de Zielona Góra (Pologne)",
+              "Unité avicole et formation d'étudiants aux techniques avicoles modernes par des investisseurs martiniquais, à Savè | En cours de discussion pour études\nFormation et professionnalisation des potiers du Bénin par des potiers martiniquais | En cours de pourparlers\nCoopération entre l'Université d'Abomey-Calavi et l'Université de Zielona Góra (Pologne) | En cours de discussion",
             image: photo("marechal-ladekan-mesrs-2024", "Rencontre au Ministère de l'Enseignement supérieur et de la Recherche scientifique"),
           },
           {
@@ -602,7 +602,7 @@ const services = {
             title: "Partenariats institutionnels et sectoriels",
             text: "Établissement et développement de partenariats structurants.",
             points:
-              "Recherche de partenariats avec des entités footballistiques et une académie de football parisienne\nDemande de jumelage d'universités d'Outre-Mer avec celles du Bénin (rencontre d'échanges avec le DAC du MESRS)\nBourses d'études pour les étudiants africains, notamment en filières scientifiques, et partenariat de l'Université de Zielona Góra (Pologne) avec celle d'Abomey-Calavi, sous la tutelle de la mairie d'Abomey-Calavi\nCoopération entre la mairie de Grand-Popo, Agoué et deux collectivités de Martinique\nParticipation au programme PartiCiP au DEL avec des investisseurs afrodescendants (décembre 2024)",
+              "Recherche de partenariats avec des entités footballistiques et une académie de football parisienne\nDemande de jumelage d'universités d'Outre-Mer avec celles du Bénin (rencontre d'échanges avec le DAC du MESRS) | En cours de pourparlers\nBourses d'études pour les étudiants africains, notamment en filières scientifiques, et partenariat de l'Université de Zielona Góra (Pologne) avec celle d'Abomey-Calavi, sous la tutelle de la mairie d'Abomey-Calavi | En cours de négociations\nCoopération entre la mairie de Grand-Popo, Agoué et deux collectivités de Martinique | En cours de pourparlers\nParticipation au programme PartiCiP au DEL avec des investisseurs afrodescendants (décembre 2024)",
             image: photo("seance-travail-mesrs", "Séance de travail au MESRS"),
           },
           {
